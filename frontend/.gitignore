@@ -1,0 +1,55 @@
+<<<<<<< HEAD
+# Logs
+logs
+*.log
+=======
+node_modules/
+
+>>>>>>> 2813d8a6235575a931cddafe11bd639e218b4486
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+<<<<<<< HEAD
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+=======
+
+.env
+.env.local
+.env.*.local
+
+frontend/build/
+
+backend/dist/
+backend/build/
+
+*.tmp
+*.cache
+*.log
+.cache/
+.tmp/
+coverage/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+*.swp
+>>>>>>> 2813d8a6235575a931cddafe11bd639e218b4486
