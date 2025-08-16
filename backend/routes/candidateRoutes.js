@@ -5,6 +5,6 @@ const {role} = require('../middleware/roleMiddleware')
 
 const router= express.Router();
 
-router.get('/votes', auth, role, getVoteCount);
+router.get('/votes', auth, role('candidate'), getVoteCount);
 
 module.exports = router;

@@ -5,8 +5,8 @@ const {role} = require('../middleware/roleMiddleware')
 
 const router= express.Router();
 
-router.post('/candidates', auth, role, addCandidate);
-router.post('/candidates/:id', auth, role, removeCandidate);
-router.post('/live-votes', auth, role, getLiveVotes);
+router.post('/candidates', auth, role('admin'), addCandidate);
+router.delete('/candidates/:id', auth, role('admin'), removeCandidate);
+router.get('/live-votes', auth, role('admin'), getLiveVotes);
 
 module.exports = router;

@@ -1,1 +1,3 @@
-// get vote count
+const Candidate = require('../models/Candidate.js');
+
+//const getVoteCount =
