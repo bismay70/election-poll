@@ -1,5 +1,5 @@
 const express = require('express');
-const {getVoteCount} = require('../controllers/adminController')
+const {getVoteCount} = require('../controllers/candidateController')
 const {auth} = require('../middleware/authMiddleware')
 const {role} = require('../middleware/roleMiddleware')
 

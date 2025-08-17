@@ -6,13 +6,13 @@ try{
     const candidate = await Candidate.findById(candidateId);
    
     if(!candidate) return res.status(404).json({message: "Candidate Not Found!"});
-    res.status(200).json({candidate: {
+    return res.status(200).json({candidate: {
                 id: candidate._id,
-                name: candidate.name,
+                name: candidate.candidateName,
                 totalVotes: candidate.totalVotes
     }})
 } catch(err) {
-    res.status(500).json({message: err.message});
+    return res.status(500).json({message: err.message});
 }}
 
 module.exports = {getVoteCount}

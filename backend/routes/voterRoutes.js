@@ -1,5 +1,5 @@
 const express = require('express');
-const {castVote, viewCandidates} = require('../controllers/adminController')
+const {castVote, viewCandidates} = require('../controllers/voterController')
 const {auth} = require('../middleware/authMiddleware')
 const {role} = require('../middleware/roleMiddleware')
 

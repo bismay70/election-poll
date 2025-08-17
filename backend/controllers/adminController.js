@@ -29,7 +29,7 @@ try{
     res.status(200).json({
       candidates: candidates.map(item => ({
         id: item._id,
-        name: item.name,
+        name: item.candidateName,
         totalVotes: item.totalVotes
       }))
     });
