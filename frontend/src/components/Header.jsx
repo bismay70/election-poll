@@ -14,7 +14,7 @@ export default function Header() {
             <div className="bg-black p-1 rounded transform rotate-12">
               <div className="text-white font-bold text-xl">E</div>
             </div>
-            <span className="text-2xl font-bold text-black">ElectPoll</span>
+            <span className="text-2xl font-bold text-black">ElectSecure</span>
           </div>
 
         
@@ -61,3 +61,4 @@ export default function Header() {
     </header>
   );
 }
+
