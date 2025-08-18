@@ -8,15 +8,21 @@ try{
     const {name, email, password, role} = req.body;
     if (await User.findOne({email})) 
         return res.status(400).json({message: 'Email Already in Use'});
-
+    
+    let assignedRole = "voter";
     if (role === "admin") {
-      const adminCount = await User.countDocuments({role: "admin"});
-      if (adminCount >= 2) {
-        return res.status(403).json({message: "Admin limit reached (2 only)"});
+      const admins = await User.countDocuments({role: "admin"});
+      if (admins >= 2) {
+        return res.status(403).json({message: "You are Unauthorized to do this!"});
       }
+      assignedRole = "admin";
     }
 
-    const user = await User.create({ name, email, password, role});
+    if (role === "candidate") {
+      return res.status(403).json({ message: "Candidates cannot self-register. Please contact Admin." });
+    }
+
+    const user = await User.create({name, email, password, role: assignedRole});
 
     res.status(201).json({
         _id: user.id,
