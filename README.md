@@ -1,4 +1,4 @@
-# 🗳️ Online Election System  
+# 🗳️ Election Poll System  
 
 A **full-stack web application** that allows secure online elections with **role-based access control**. Built with **React (frontend)** and **Node.js/Express + MongoDB (backend)**.  
 
@@ -74,7 +74,5 @@ A **full-stack web application** that allows secure online elections with **role
 - Create an admin dashboard with analytics and candidate management.  
 - Add email notifications for voters after successful voting.  
 - Enhance UI/UX with animations and accessibility improvements.    
-
-
 - Admin panel for managing candidates through UI.  
 - Enhanced analytics and visualizations.  
