@@ -3,7 +3,7 @@ const allowedOriginsDev = [
 ];
 
 const allowedOriginsProd = [
-    // we will put our hosted frontend url
+    `https://election-poll-eight.vercel.app/`
 ];
 
 const corsOptions = {
