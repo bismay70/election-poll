@@ -18,7 +18,7 @@ const pieData = [
   { name: 'Not Voted', value: 300 },
 ];
 
-const COLORS = ['#000000', '#60a5fa']; // black and light blue
+const COLORS = ['#000000', '#60a5fa']; 
 
 const barData = [
   { constituency: 'Mumbai North', voted: 120, notVoted: 30 },
@@ -30,7 +30,7 @@ export default function Dashboard() {
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto">
       
-      {/* Image at Top */}
+   
       <div className="flex justify-center mb-8">
         <img
           src="/images/Screenshot 2025-08-16 130806.png"
@@ -39,13 +39,13 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Title */}
+    
       <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Election Statistics</h2>
 
-      {/* Charts Section */}
+    
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        {/* Pie Chart Card */}
+     
         <div className="bg-white rounded-xl shadow p-4">
           <h3 className="font-semibold text-lg mb-4 text-center">Voter Participation</h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -69,7 +69,7 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
-        {/* Bar Chart Card */}
+        
         <div className="bg-white rounded-xl shadow p-4">
           <h3 className="font-semibold text-lg mb-4 text-center">Votes by Constituency</h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -88,3 +88,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
