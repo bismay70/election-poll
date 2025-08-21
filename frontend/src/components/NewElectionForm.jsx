@@ -21,10 +21,10 @@ export default function NewElectionForm({ onCreate }) {
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl font-extrabold mb-6 text-center text-gray-800">
-        🗳 Create New Election
+         Create New Election
       </h2>
 
-      {/* Election Name */}
+   
       <div className="mb-5">
         <label className="block font-semibold text-gray-700 mb-2">Election Name</label>
         <input
@@ -37,7 +37,7 @@ export default function NewElectionForm({ onCreate }) {
         />
       </div>
 
-      {/* Date */}
+    
       <div className="mb-5">
         <label className="block font-semibold text-gray-700 mb-2">Date</label>
         <input
@@ -49,7 +49,7 @@ export default function NewElectionForm({ onCreate }) {
         />
       </div>
 
-      {/* Constituency */}
+    
       <div className="mb-8">
         <label className="block font-semibold text-gray-700 mb-2">Constituency</label>
         <input
@@ -62,7 +62,7 @@ export default function NewElectionForm({ onCreate }) {
         />
       </div>
 
-      {/* Button */}
+     
       <div className="text-center">
         <button
           type="submit"
@@ -74,3 +74,4 @@ export default function NewElectionForm({ onCreate }) {
     </form>
   );
 }
+
