@@ -13,6 +13,9 @@ export default function Header() {
          
           <div className="flex items-center gap-2">
             <Vote className="h-8 w-8 text-black" /> 
+            <div className="bg-black p-1 rounded transform rotate-12">
+                <div className="text-black font-bold text-xl">E</div>
+              </div>
             <div className="font-extrabold text-2xl text-black tracking-wide">
               ElectPoll
             </div>
@@ -59,3 +62,4 @@ export default function Header() {
     </header>
   );
 }
+
