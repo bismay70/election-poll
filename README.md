@@ -63,7 +63,7 @@ A **full-stack web application** that allows secure online elections with **role
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB Atlas  
 - **Auth:** JWT, bcrypt  
-- **Deployment:** Render (Backend), Vercel/Netlify (Frontend)  
+- **Deployment:** Render (Backend), Vercel (Frontend)  
 
 ---
 
