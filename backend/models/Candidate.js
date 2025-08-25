@@ -6,8 +6,15 @@ const candidateSchema = mongoose.Schema({
         required: true
     },
     totalVotes: 
-    {   type: Number, 
+    {   type: Number,
+        required: true, 
         default: 0
+    },
+    party: {
+        type: String,
+    },
+    constituency: {
+        type: String,
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

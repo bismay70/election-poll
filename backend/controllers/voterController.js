@@ -33,6 +33,8 @@ const castVote = async (req,res) => {
         candidate: {
                 id: candidate._id,
                 name: candidate.candidateName,
+                party: candidate.party,
+                constituency: candidate.constituency
             }
         })
         

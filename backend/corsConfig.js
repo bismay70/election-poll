@@ -1,9 +1,10 @@
 const allowedOriginsDev = [
-    'https://localhost:5000'
+    'https://localhost:3000',
+    'http://localhost:5173'
 ];
 
 const allowedOriginsProd = [
-    // we will put our hosted frontend url
+    "https://election-poll-eight.vercel.app"
 ];
 
 const corsOptions = {

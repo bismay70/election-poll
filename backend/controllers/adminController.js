@@ -1,5 +1,4 @@
 const User = require('../models/User.js');
-const Vote = require('../models/Vote.js');
 const Candidate = require('../models/Candidate.js');
 
 const addCandidate = async (req,res) => {

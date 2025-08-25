@@ -16,14 +16,16 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
 const voterRoutes = require('./routes/voterRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/candidate', candidateRoutes);
-app.use('/voter', voterRoutes)
+app.use('/voter', voterRoutes);
+app.use('/contact', contactRoutes);
 
 app.get('/', (req,res) => {
-    res.status(404).json({message: "Voting System API Created Successfully!"});
+    res.status(200).json({message: "Voting System API Created Successfully!"});
 })
 app.use((req,res) => {
     res.status(404).json({message: "Route not found"});
