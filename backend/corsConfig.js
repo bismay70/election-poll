@@ -4,7 +4,7 @@ const allowedOriginsDev = [
 ];
 
 const allowedOriginsProd = [
-    "https://election-poll-eight.vercel.app"
+    `https://election-poll-eight.vercel.app/`
 ];
 
 const corsOptions = {

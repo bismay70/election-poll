@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Vote } from 'lucide-react'; 
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-        
-          <div className="flex items-center space-x-2">
+    <header className="bg-white border-b border-gray-200 px-4 py-3 shadow-sm">
+      <div className="max-w-7xl mx-auto">
+        <nav className="flex items-center justify-between">
+         
+          <div className="flex items-center gap-2">
+            <Vote className="h-8 w-8 text-black" /> 
             <div className="bg-black p-1 rounded transform rotate-12">
-              <div className="text-white font-bold text-xl">E</div>
+                <div className="text-black font-bold text-xl">E</div>
+              </div>
+            <div className="font-extrabold text-2xl text-black tracking-wide">
+              ElectPoll
             </div>
-            <span className="text-2xl font-bold text-black">ElectSecure</span>
           </div>
 
-        
-          <nav className="hidden lg:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-black font-medium">Home</Link>
-            <Link to="/admin" className="text-gray-700 hover:text-black font-medium">Admin Panel</Link>
-            <Link to="/voter" className="text-gray-700 hover:text-black font-medium">Voter Dashboard</Link>
-            <Link to="/voter_id" className="text-gray-700 hover:text-black font-medium">Voter ID</Link>
-            <a href="#" className="text-gray-700 hover:text-black font-medium">About Us</a>
-            <a href="#" className="text-gray-700 hover:text-black font-medium">Contact Us</a>
-          </nav>
+         
+          <div className="hidden md:flex gap-6 text-sm font-semibold">
+            <Link to="/" className="hover:text-black transition">Home</Link>
+            <Link to="/voter" className="hover:text-black transition">Voter</Link>
+            <Link to="/admin" className="hover:text-black transition">Admin</Link>
+            <Link to="/dashboard" className="hover:text-black transition">Dashboard</Link>
+            <Link to="/new-election" className="hover:text-black transition">New Election</Link>
+          </div>
 
         
           <div className="flex items-center space-x-4">
@@ -33,27 +36,25 @@ export default function Header() {
               Login
             </button>
 
-           
-            <button 
-              className="lg:hidden p-2 rounded-md text-gray-700 hover:text-black hover:bg-gray-100"
+         
+            <button
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-black hover:bg-gray-100"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
-        </div>
+        </nav>
 
-       
+      
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 py-4">
+          <div className="md:hidden border-t border-gray-200 py-4">
             <nav className="flex flex-col space-y-4">
               <Link to="/" className="text-gray-700 hover:text-black font-medium">Home</Link>
-              <a href="#" className="text-gray-700 hover:text-black font-medium">About Us</a>
-              <a href="#" className="text-gray-700 hover:text-black font-medium">Mobile Voting</a>
-              <Link to="/admin" className="text-gray-700 hover:text-black font-medium">Admin Panel</Link>
-            <Link to="/voter" className="text-gray-700 hover:text-black font-medium">Voter Dashboard</Link>
-            <Link to="/voter_id" className="text-gray-700 hover:text-black font-medium">Voter ID</Link>
-              <a href="#" className="text-gray-700 hover:text-black font-medium">Contact Us</a>
+              <Link to="/voter" className="text-gray-700 hover:text-black font-medium">Voter</Link>
+              <Link to="/admin" className="text-gray-700 hover:text-black font-medium">Admin</Link>
+              <Link to="/dashboard" className="text-gray-700 hover:text-black font-medium">Dashboard</Link>
+              <Link to="/new-election" className="text-gray-700 hover:text-black font-medium">New Election</Link>
             </nav>
           </div>
         )}

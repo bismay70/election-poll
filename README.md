@@ -4,7 +4,7 @@ A **full-stack web application** that allows secure online elections with **role
 
 ## 🌐 Deployment  
 - **Backend deployed on:** [https://election-poll-2gdn.onrender.com/](https://election-poll-2gdn.onrender.com/)  
-- **Frontend deployed on:** Vercel/Netlify (link here once deployed)  
+- **Frontend deployed on:** [https://election-poll-eight.vercel.app/](https://election-poll-eight.vercel.app/)  
 - Connected via **CORS** and environment variables.  
 
 ---

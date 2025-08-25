@@ -1,5 +1,5 @@
 {
-  "name": "election-vite-app",
+  "name": "ElectPoll",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.0",
+    "recharts": "^3.1.2",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -6,6 +5,10 @@ import Footer from './components/Footer';
 import VoterCard from './components/VoterCard/VoterCard';
 import VoterDashboard from './components/Voter/VoterDashboard';
 import AdminDashboard from './components/Admin/AdminDashboard';
+import Dashboard from './components/Dashboard'; 
+import NewElectionForm from './components/NewElectionForm'; 
+import VoterCardGenerator from './components/Voter/VoterCardGenerator';
+import ContactUs from './components/ContactUs';
 
 const sampleUser = {
   name: 'Sachin Sethi',
@@ -31,8 +34,13 @@ export default function App() {
             </div>
           </div>
         } />
-         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/voter" element={<VoterDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/voter" element={
+          <VoterDashboard user={sampleUser} />
+        } />
+        <Route path="/dashboard" element={<Dashboard />} /> 
+        <Route path="/new-election" element={<NewElectionForm />} /> 
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
       <Footer/>
     </Router>
