@@ -52,7 +52,7 @@ const MyForm = () => {
           Have questions or feedback? Fill out the form below and we’ll get back to you!
         </p>
 
-        <form className="space-y-5" onSubmit={handleSubmit}>
+        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             name="name"
@@ -81,7 +81,8 @@ const MyForm = () => {
             onChange={handleChange}
           />
           <button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             className="w-full bg-black text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all duration-300 shadow-md"
           >
             Send Message
