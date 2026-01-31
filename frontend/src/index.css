@@ -1,27 +1,20 @@
 @import "tailwindcss";
 
-
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
-
-body {
   font-family: 'Poppins', sans-serif;
 }
 
-
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(20px);}
-  to { opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in-scale {
-  from { opacity: 0; transform: scale(0.8);}
-  to { opacity: 1; transform: scale(1);}
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes text-blink {
@@ -49,11 +42,3 @@ body {
 .animate-fade-in-delay:nth-of-type(1) { animation-delay: 1s; }
 .animate-fade-in-delay:nth-of-type(2) { animation-delay: 2s; }
 .animate-fade-in-delay:nth-of-type(3) { animation-delay: 3s; }
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fade-in 1s ease forwards;
-}
