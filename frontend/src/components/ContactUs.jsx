@@ -18,7 +18,7 @@ const MyForm = () => {
 
   try {
     const response = await axios.post('/api/contact', formData, {
-      headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     });
 
     if (response.status === 201) {
