@@ -5,16 +5,35 @@ import { useState } from 'react';
 const MyForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
   };
 
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+  
   const handleSubmit = async (e) => {
   e.preventDefault();
-  setLoading(true);
   setSuccess(false);
+  setError('');
+
+  const { name, email, message } = formData;
+
+  if (!name || !email || !message) {
+    setError('All fields are mandatory!');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    setError('Please enter a valid email address (e.g. abcd@xyz.com).');
+    return;
+  }
+  setLoading(true);
 
   try {
     const response = await axios.post(
@@ -29,11 +48,14 @@ const MyForm = () => {
       setFormData({ name: '', email: '', message: '' });
       setSuccess(true);
     } else {
-      console.error('Unexpected response:', response);
+      setError('Something went wrong. Please try again.');
     }
   } catch (error) {
-    console.error('Submit failed:', error.response?.data || error.message);
-  } finally {
+    setError(
+        err.response?.data?.message ||
+        'Unable to send message. Please try again later.'
+      );
+    } finally {
     setLoading(false);
   }
 };
@@ -46,6 +68,11 @@ const MyForm = () => {
         {success && (
         <div className="mb-4 rounded-lg bg-green-100 text-green-800 px-4 py-3 text-center">
           ✅ Your message has been sent successfully!
+        </div>
+        )}
+        {error && (
+        <div className="mb-4 rounded-lg bg-red-100 text-red-800 px-4 py-3 text-center">
+          {error}
         </div>
         )}
         <p className="mb-6 text-gray-600 text-center">
@@ -80,12 +107,12 @@ const MyForm = () => {
             value={formData.message}
             onChange={handleChange}
           />
-          <button
+          <button disabled={loading}
             type="button"
             onClick={handleSubmit}
-            className="w-full bg-black text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all duration-300 shadow-md"
+            className="w-full bg-black text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all duration-300 shadow-md cursor-pointer ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}"
           >
-            Send Message
+            {loading ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>

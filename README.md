@@ -3,8 +3,8 @@
 A **full-stack web application** that allows secure online elections with **role-based access control**. Built with **React (frontend)** and **Node.js/Express + MongoDB (backend)**.  
 
 ## 🌐 Deployment  
-- **Backend deployed on:** [https://election-poll-2gdn.onrender.com/](https://election-poll-2gdn.onrender.com/)  
-- **Frontend deployed on:** [https://election-poll-eight.vercel.app/](https://election-poll-eight.vercel.app/)  
+- **Backend deployed on:** [https://election-poll-2gdn.onrender.com](https://election-poll-2gdn.onrender.com/)  
+- **Frontend deployed on:** [https://shreya-mishra325-election-poll.vercel.app](https://election-poll-eight.vercel.app/)  
 - Connected via **CORS** and environment variables.  
 
 ---
