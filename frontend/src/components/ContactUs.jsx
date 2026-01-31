@@ -52,7 +52,7 @@ const MyForm = () => {
     }
   } catch (error) {
     setError(
-        err.response?.data?.message ||
+        error.response?.data?.message ||
         'Unable to send message. Please try again later.'
       );
     } finally {
