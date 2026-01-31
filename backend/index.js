@@ -22,7 +22,7 @@ app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/candidate', candidateRoutes);
 app.use('/voter', voterRoutes);
-app.use('/contact', contactRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get('/', (req,res) => {
     res.status(200).json({message: "Voting System API Created Successfully!"});

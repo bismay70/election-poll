@@ -8,7 +8,7 @@ import AdminDashboard from './components/Admin/AdminDashboard';
 import Dashboard from './components/Dashboard'; 
 import NewElectionForm from './components/NewElectionForm'; 
 import VoterCardGenerator from './components/Voter/VoterCardGenerator';
-import ContactUs from './components/ContactUs';
+import MyForm from './components/ContactUs';
 
 const sampleUser = {
   name: 'Sachin Sethi',
@@ -40,7 +40,7 @@ export default function App() {
         } />
         <Route path="/dashboard" element={<Dashboard />} /> 
         <Route path="/new-election" element={<NewElectionForm />} /> 
-        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/contact" element={<MyForm />} />
       </Routes>
       <Footer/>
     </Router>
