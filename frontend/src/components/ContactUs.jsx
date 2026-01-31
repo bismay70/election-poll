@@ -17,9 +17,13 @@ const MyForm = () => {
   setSuccess(false);
 
   try {
-    const response = await axios.post('/api/contact', formData, {
-    headers: { 'Content-Type': 'application/json' },
-    });
+    const response = await axios.post(
+    `${import.meta.env.VITE_API_URL}/api/contact`,
+    formData,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
 
     if (response.status === 201) {
       setFormData({ name: '', email: '', message: '' });
