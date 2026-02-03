@@ -56,7 +56,7 @@ const AdminDashboard = () => {
 			
 			<div className="flex justify-center mb-10">
 				<img
-					src="/images/Screenshot 2025-08-16 130738.png"
+					src="/images/votes_count.png"
 					alt="Admin Banner"
 					className="rounded-lg shadow-md w-60 h-40 object-cover"
 				/>
