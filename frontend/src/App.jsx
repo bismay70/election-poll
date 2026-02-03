@@ -9,6 +9,7 @@ import Dashboard from './components/Dashboard';
 import NewElectionForm from './components/NewElectionForm'; 
 import VoterCardGenerator from './components/Voter/VoterCardGenerator';
 import MyForm from './components/ContactUs';
+import ScrollToTop from "./components/scrollToTop.jsx";
 
 const sampleUser = {
   name: 'Sachin Sethi',
@@ -24,6 +25,7 @@ const sampleUser = {
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
