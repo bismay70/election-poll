@@ -10,6 +10,7 @@ import NewElectionForm from './components/NewElectionForm';
 import VoterCardGenerator from './components/Voter/VoterCardGenerator';
 import MyForm from './components/ContactUs';
 import ScrollToTop from "./components/scrollToTop.jsx";
+import Login from "./components/Login.jsx";
 
 const sampleUser = {
   name: 'Sachin Sethi',
@@ -29,6 +30,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/voter_id" element={
           <div className="min-h-screen py-20 bg-gray-100">
             <div className="max-w-4xl mx-auto px-4">

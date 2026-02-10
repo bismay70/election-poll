@@ -7,38 +7,37 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 py-3 shadow-sm">
+    <header className="bg-blue-100 border-b-4 border-black px-4 py-4 shadow-[0px_4px_0px_0px_rgba(0,0,0,1)] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto">
         <nav className="flex items-center justify-between">
          
-          <div className="flex items-center gap-2">
-            <Vote className="h-8 w-8 text-black" /> 
-            <div className="bg-black p-1 rounded transform rotate-12">
-                <div className="text-black font-bold text-xl">E</div>
-              </div>
-            <div className="font-extrabold text-2xl text-black tracking-wide">
-              ElectPoll
+          <div className="flex items-center gap-2 group cursor-pointer">
+            <div className="bg-black p-2 rounded-none transform -rotate-6 transition-transform group-hover:rotate-0">
+                <span className="text-blue-400 font-bold text-xl">E</span>
+            </div>
+            <div className="font-black text-2xl text-black tracking-tighter uppercase relative">
+              Elect<span className="text-white" style={{WebkitTextStroke: '1px black'}}>Poll</span>
             </div>
           </div>
 
          
-          <div className="hidden md:flex gap-6 text-sm font-semibold">
-            <Link to="/" className="hover:text-black transition">Home</Link>
-            <Link to="/voter" className="hover:text-black transition">Voter</Link>
-            <Link to="/admin" className="hover:text-black transition">Admin</Link>
-            <Link to="/dashboard" className="hover:text-black transition">Dashboard</Link>
-            <Link to="/new-election" className="hover:text-black transition">New Election</Link>
+          <div className="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wide">
+            <Link to="/" className="text-black hover:bg-black hover:text-blue-400 px-3 py-1 transition-colors border-2 border-transparent hover:border-black rounded-sm">Home</Link>
+            <Link to="/voter" className="text-black hover:bg-black hover:text-blue-400 px-3 py-1 transition-colors border-2 border-transparent hover:border-black rounded-sm">Voter</Link>
+            <Link to="/admin" className="text-black hover:bg-black hover:text-blue-400 px-3 py-1 transition-colors border-2 border-transparent hover:border-black rounded-sm">Admin</Link>
+            <Link to="/dashboard" className="text-black hover:bg-black hover:text-blue-400 px-3 py-1 transition-colors border-2 border-transparent hover:border-black rounded-sm">Dashboard</Link>
+            <Link to="/new-election" className="text-black hover:bg-black hover:text-blue-400 px-3 py-1 transition-colors border-2 border-transparent hover:border-black rounded-sm">New Election</Link>
           </div>
 
         
           <div className="flex items-center space-x-4">
-            <button className="bg-black text-white px-6 py-2 rounded font-semibold hover:bg-gray-800 transition">
+            <Link to="/login" className="bg-black text-white px-6 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all border-2 border-white">
               Login
-            </button>
+            </Link>
 
          
             <button
-              className="md:hidden p-2 rounded-md text-gray-700 hover:text-black hover:bg-gray-100"
+              className="md:hidden p-2 rounded-md text-black hover:bg-black hover:text-blue-400 border-2 border-black"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -48,13 +47,13 @@ export default function Header() {
 
       
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
-            <nav className="flex flex-col space-y-4">
-              <Link to="/" className="text-gray-700 hover:text-black font-medium">Home</Link>
-              <Link to="/voter" className="text-gray-700 hover:text-black font-medium">Voter</Link>
-              <Link to="/admin" className="text-gray-700 hover:text-black font-medium">Admin</Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-black font-medium">Dashboard</Link>
-              <Link to="/new-election" className="text-gray-700 hover:text-black font-medium">New Election</Link>
+          <div className="md:hidden border-t-2 border-black mt-4 py-4 bg-blue-100">
+            <nav className="flex flex-col space-y-2 px-2">
+              <Link to="/" className="text-black font-bold hover:bg-black hover:text-blue-400 p-2 border-2 border-transparent hover:border-black">Home</Link>
+              <Link to="/voter" className="text-black font-bold hover:bg-black hover:text-blue-400 p-2 border-2 border-transparent hover:border-black">Voter</Link>
+              <Link to="/admin" className="text-black font-bold hover:bg-black hover:text-blue-400 p-2 border-2 border-transparent hover:border-black">Admin</Link>
+              <Link to="/dashboard" className="text-black font-bold hover:bg-black hover:text-blue-400 p-2 border-2 border-transparent hover:border-black">Dashboard</Link>
+              <Link to="/new-election" className="text-black font-bold hover:bg-black hover:text-blue-400 p-2 border-2 border-transparent hover:border-black">New Election</Link>
             </nav>
           </div>
         )}
