@@ -13,12 +13,11 @@ export default function Home() {
         {/* Background Image Effect */}
         <div className="absolute inset-0 z-0">
              <img 
-                src="/images/flag_bg.jpg" // Assuming we might use a flag image or similar generic Indian theme background
-                onError={(e) => e.target.src = "https://img.freepik.com/free-vector/indian-flag-theme-abstract-flag-design-background_1055-10580.jpg"}
+                src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/201904/general-elections-2019-m_660_042919091753.jpg"
                 alt="Background" 
-                className="w-full h-full object-cover opacity-20"
+                className="w-full h-full object-cover opacity-30" 
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-100 via-white to-green-100 opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-50 via-white to-green-50 opacity-70"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
@@ -30,7 +29,7 @@ export default function Home() {
              </p>
              <button 
                 onClick={() => navigate('/login')}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transform transition hover:scale-105"
+                className="group relative inline-flex justify-center py-3 px-10 border border-transparent text-sm font-bold rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 shadow-lg transform transition hover:scale-105"
             >
               Vote Now
             </button>

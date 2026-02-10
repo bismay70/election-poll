@@ -45,6 +45,87 @@ const barData = [
   { name: 'Sun', value: 55 },
 ];
 
+const CalendarWidget = () => {
+    const [currentDate, setCurrentDate] = React.useState(new Date());
+
+    const getDaysInMonth = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        return { daysInMonth, firstDayOfMonth };
+    };
+
+    const { daysInMonth, firstDayOfMonth } = getDaysInMonth(currentDate);
+
+    const prevMonth = () => {
+        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    };
+
+    const nextMonth = () => {
+        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    };
+
+    return (
+        <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+             <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-lg text-gray-800">Calendar</h3>
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-1">
+                        <button onClick={prevMonth} className="p-1 hover:bg-white rounded-md shadow-sm transition-all text-gray-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <span className="text-sm font-semibold text-gray-800 w-32 text-center select-none">
+                             {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                        </span>
+                        <button onClick={nextMonth} className="p-1 hover:bg-white rounded-md shadow-sm transition-all text-gray-600">
+                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <button 
+                        onClick={() => setCurrentDate(new Date())}
+                        className="text-xs font-semibold text-blue-600 border border-blue-200 px-3 py-1.5 rounded-md hover:bg-blue-50 transition-colors"
+                    >
+                        Today
+                    </button>
+                </div>
+            </div>
+            {/* Functional Calendar Grid */}
+            <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                     <div key={day} className="font-semibold text-gray-400 mb-2 py-2">{day}</div>
+                 ))}
+                 {(() => {
+                    const days = [];
+                    // Empty slots for previous month
+                    for (let i = 0; i < firstDayOfMonth; i++) {
+                        days.push(<div key={`empty-${i}`} className="p-2"></div>);
+                    }
+                    // Days of current month
+                    const today = new Date();
+                    for (let i = 1; i <= daysInMonth; i++) {
+                        const isToday = 
+                            i === today.getDate() && 
+                            currentDate.getMonth() === today.getMonth() && 
+                            currentDate.getFullYear() === today.getFullYear();
+                        
+                        days.push(
+                            <div key={i} className={`p-2 rounded-lg cursor-pointer transition-colors ${isToday ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-blue-50 text-gray-700'}`}>
+                                {i}
+                            </div>
+                        );
+                    }
+                    return days;
+                 })()}
+            </div>
+        </div>
+    );
+};
+
 export default function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-50 font-sans">
@@ -117,7 +198,7 @@ export default function Dashboard() {
              <div className="relative w-full md:w-96">
                 <input 
                     type="text" 
-                    placeholder="Search tasks" 
+                    placeholder="Search elections,voters and see analytics" 
                     className="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm text-gray-600"
                 />
                 <div className="absolute left-3 top-2.5 text-gray-400">
@@ -280,26 +361,8 @@ export default function Dashboard() {
 
         {/* Bottom Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                 <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-bold text-lg text-gray-800">Calendar View</h3>
-                     <button className="text-sm font-semibold text-blue-600 border border-blue-200 px-3 py-1 rounded-md hover:bg-blue-50">
-                        View Full
-                    </button>
-                </div>
-                {/* Simple Calendar Grid */}
-                <div className="grid grid-cols-7 gap-2 text-center text-sm">
-                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                         <div key={day} className="font-semibold text-gray-400 mb-2">{day}</div>
-                     ))}
-                     {Array.from({length: 31}, (_, i) => i + 1).map(date => (
-                         <div key={date} className={`p-2 rounded-lg ${date === 24 ? 'bg-blue-600 text-white' : 'hover:bg-gray-50 text-gray-700'}`}>
-                             {date}
-                             {date === 24 && <div className="w-1 h-1 bg-white rounded-full mx-auto mt-1"></div>}
-                         </div>
-                     ))}
-                </div>
-            </div>
+            <CalendarWidget />
+
             <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
                 <h3 className="font-bold text-lg text-gray-800 mb-6">Project Progress</h3>
                 <div className="relative h-48 flex items-center justify-center">
@@ -331,4 +394,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
