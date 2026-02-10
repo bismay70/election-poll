@@ -11,6 +11,7 @@ const mockCandidates = [
     symbol: '🌾',
     constituency: 'Bhubaneswar',
     votes: 0,
+    color: 'bg-green-100'
   },
   {
     id: '2',
@@ -19,6 +20,7 @@ const mockCandidates = [
     symbol: '🌸',
     constituency: 'Bhubaneswar',
     votes: 0,
+    color: 'bg-pink-100'
   },
   {
     id: '3',
@@ -27,6 +29,7 @@ const mockCandidates = [
     symbol: '🕊️',
     constituency: 'Rourkela',
     votes: 0,
+     color: 'bg-blue-100'
   },
 ];
 
@@ -45,98 +48,77 @@ const VoterDashboard = ({ user }) => {
   const confirmVote = () => {
     setHasVoted(true);
     setShowConfirmation(false);
-   
+    // Logic to update backend would go here
   };
 
   return (
-    <div>
-      <nav className="bg-white border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 font-sans text-black">
+      {/* Navigation Tabs */}
+      <nav className="bg-white border-b-4 border-black sticky top-0 z-30">
         <div className="container mx-auto px-4">
-          <div className="flex space-x-8">
+          <div className="flex space-x-2 overflow-x-auto">
             {['home', 'vote', 'idcard'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-4 px-4 border-b-4 font-semibold text-md transition-all ${
+                className={`py-4 px-6 font-black text-sm uppercase tracking-widest border-x-2 border-t-0 border-b-0 transition-all ${
                   activeTab === tab
-                    ? 'border-black text-black'
-                    : 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-400'
+                    ? 'bg-black text-white'
+                    : 'bg-white text-black hover:bg-gray-100 border-transparent'
                 }`}
               >
-                {tab === 'home' && 'Home'}
+                {tab === 'home' && 'My Profile'}
                 {tab === 'vote' && 'Cast Vote'}
-                {tab === 'idcard' && 'Generate Voter ID'}
+                {tab === 'idcard' && 'ID Card'}
               </button>
             ))}
           </div>
         </div>
       </nav>
 
-     
-      {activeTab === 'home' && (
-        <div className="bg-white rounded-xl shadow-sm p-8 mb-8 border border-blue-100 relative overflow-hidden">
-            {/* Background Decor */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-bl-full z-0 opacity-50"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gray-100 rounded-tr-full z-0 opacity-50"></div>
+      <div className="container mx-auto px-4 py-8">
+      
+       {/* PROFILE TAB */}
+       {activeTab === 'home' && (
+        <div className="max-w-4xl mx-auto bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
+            {/* Header Strip */}
+            <div className="bg-yellow-300 border-b-4 border-black p-4 flex justify-between items-center">
+                 <h2 className="text-3xl font-black text-black uppercase tracking-tighter">Voter Profile</h2>
+                 <div className="px-3 py-1 bg-black text-white font-bold text-xs uppercase tracking-wider">verified</div>
+            </div>
             
-            <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
+            <div className="p-8 flex flex-col md:flex-row gap-12 items-start">
                 
                 {/* Image Section */}
-                <div className="relative">
-                    <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-20">
+                <div className="flex-shrink-0 mx-auto md:mx-0">
+                    <div className="w-48 h-48 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative bg-blue-100">
                         <img
                             src={user.photo} 
                             alt="Profile"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-300"
                         />
+                         {/* Badge */}
+                        <div className="absolute -bottom-4 -right-4 bg-red-500 text-white font-black text-xs px-2 py-1 border-2 border-black transform rotate-3">
+                            IND CITIZEN
+                        </div>
                     </div>
-                    {/* Decorative Circle behind */}
-                    <div className="absolute top-4 -left-4 w-64 h-64 rounded-full bg-blue-100 -z-10 blur-xl opacity-60"></div>
-                     {/* Striped Pattern */}
-                     <div className="absolute -bottom-6 -right-6 w-32 h-12 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAOklEQVQYV2NkYGAwYmBg0GBgYGiAMwgwMjNamJmXT2VkZKwjwZOMDIwWKGCkaqCFmXn5VEZGxjoSPAkAzOQRCtcVKu4AAAAASUVORK5CYII=')] opacity-20 transform -rotate-12 z-0"></div>
                 </div>
 
-                {/* Text Content */}
-                <div className="flex-1 text-left">
-                    <div className="mb-6 relative">
-                        <h2 className="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-2" style={{fontFamily: 'Impact, sans-serif'}}>
-                            ABOUT <span className="text-blue-600">VOTER</span>
-                        </h2>
-                        <div className="w-24 h-2 bg-black mb-6"></div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-700">
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Full Name</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.name}</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Voter ID</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.voterId}</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Region / Constituency</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.constituency}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Address</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1Truncate">{user.address}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Occupation</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.job || 'N/A'}</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Marital Status</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.maritalStatus || 'N/A'}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Age / Gender</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.age} Years / {user.gender}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Phone</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.phone || 'N/A'}</p>
+                {/* Info Grid */}
+                <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <InfoField label="Full Name" value={user.name} />
+                    <InfoField label="Voter ID" value={user.voterId} highlight />
+                    <InfoField label="Constituency" value={user.constituency} />
+                    <InfoField label="Occupation" value={user.job || 'N/A'} />
+                    <InfoField label="Age / Gender" value={`${user.age} Years / ${user.gender}`} />
+                    <InfoField label="Status" value={user.maritalStatus || 'N/A'} />
+                    <div className="md:col-span-2 mt-4">
+                        <div className="bg-gray-100 border-2 border-black p-4 flex items-center gap-4">
+                            <MapPin className="text-black" size={24} />
+                            <div>
+                                <p className="text-xs font-black uppercase tracking-wider text-gray-500">Registered Address</p>
+                                <p className="font-bold text-lg">{user.address}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,105 +127,108 @@ const VoterDashboard = ({ user }) => {
       )}
 
       
+      {/* CAST VOTE TAB */}
       {activeTab === 'vote' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         
+          {/* Left Column: User Status */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-                  <User className="h-8 w-8 text-gray-600" />
+            <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6">
+              <div className="flex items-center space-x-4 mb-6 pb-6 border-b-4 border-black">
+                <div className="w-16 h-16 bg-black text-white flex items-center justify-center border-2 border-black">
+                  <User className="h-8 w-8" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">{user.name}</h2>
-                  <p className="text-gray-600">Voter ID: {user.voterId}</p>
+                  <h2 className="text-xl font-black text-black uppercase leading-none mb-1">{user.name}</h2>
+                  <p className="text-sm font-bold bg-yellow-300 inline-block px-1 border border-black">{user.voterId}</p>
                 </div>
               </div>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <MapPin className="h-5 w-5 text-gray-400" />
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-3">
+                  <MapPin className="h-6 w-6 text-black mt-1" />
                   <div>
-                    <p className="text-sm text-gray-600">Constituency</p>
-                    <p className="font-medium">{user.constituency}</p>
+                    <p className="text-xs font-black uppercase tracking-wider text-gray-500">Constituency</p>
+                    <p className="font-black text-lg">{user.constituency}</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  {hasVoted ? (
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                  ) : (
-                    <Clock className="h-5 w-5 text-orange-500" />
-                  )}
-                  <div>
-                    <p className="text-sm text-gray-600">Voting Status</p>
-                    <p className={`font-medium ${hasVoted ? 'text-green-600' : 'text-orange-600'}`}>
-                      {hasVoted ? 'Vote Cast' : 'Not Voted'}
-                    </p>
-                  </div>
+
+                <div className={`p-4 border-4 border-black ${hasVoted ? 'bg-green-100' : 'bg-red-100'}`}>
+                   <div className="flex items-center gap-3 mb-2">
+                        {hasVoted ? <CheckCircle className="h-6 w-6 text-black" /> : <Clock className="h-6 w-6 text-black" />}
+                        <span className="font-black uppercase text-lg">{hasVoted ? 'VOTE CAST' : 'NOT VOTED'}</span>
+                   </div>
+                   <p className="text-sm font-bold leading-tight">
+                       {hasVoted ? 'Thank you for exercising your right!' : 'Please select a candidate correctly.'}
+                   </p>
                 </div>
               </div>
-              {hasVoted && (
-                <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg text-center">
-                  <CheckCircle className="h-6 w-6 text-green-500 mx-auto mb-2" />
-                  <p className="text-green-800 font-semibold">Vote Successfully Cast!</p>
-                </div>
-              )}
             </div>
           </div>
 
          
+          {/* Right Column: Ballot Paper */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <Vote className="h-6 w-6 text-black" />
-                <h2 className="text-2xl font-bold text-gray-900">Select Your Candidate</h2>
+            <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8">
+              <div className="flex items-center justify-between mb-8 border-b-4 border-black pb-4">
+                <div className="flex items-center gap-3">
+                    <Vote className="h-8 w-8 text-black" />
+                    <h2 className="text-3xl font-black text-black uppercase tracking-tighter">Official Ballot</h2>
+                </div>
+                <div className="hidden md:block text-right">
+                    <p className="text-xs font-bold uppercase">Election 2026</p>
+                    <p className="text-xs font-bold uppercase text-gray-500">Secure Voting Protocol</p>
+                </div>
               </div>
+
               {!hasVoted ? (
                 <>
                   <div className="space-y-4 mb-8">
                     {mockCandidates.map((candidate) => (
                       <div
                         key={candidate.id}
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all transform hover:scale-105 ${
+                        className={`group border-4 p-4 cursor-pointer transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-4 ${
                           selectedCandidate === candidate.id
-                            ? 'border-black bg-gray-50 shadow-md'
-                            : 'border-gray-200 hover:border-gray-300'
+                            ? 'border-black bg-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                            : 'border-black bg-white text-black hover:bg-gray-50'
                         }`}
                         onClick={() => setSelectedCandidate(candidate.id)}
                       >
-                        <div className="flex items-center space-x-4">
-                          <div className="text-3xl">{candidate.symbol}</div>
-                          <div className="flex-1">
-                            <h3 className="font-bold text-gray-900 text-lg">{candidate.name}</h3>
-                            <p className="text-gray-600">{candidate.party}</p>
-                            <p className="text-gray-500 text-sm">{candidate.constituency}</p>
-                          </div>
-                          <div
-                            className={`w-6 h-6 rounded-full border-2 ${
-                              selectedCandidate === candidate.id ? 'border-black bg-black' : 'border-gray-300'
-                            }`}
-                          >
-                            {selectedCandidate === candidate.id && (
-                              <div className="w-2 h-2 bg-white rounded-full m-1" />
-                            )}
-                          </div>
+                         {/* Symbol Box */}
+                        <div className={`w-16 h-16 flex items-center justify-center text-4xl border-2 ${selectedCandidate === candidate.id ? 'border-white bg-gray-800' : 'border-black bg-gray-100'}`}>
+                            {candidate.symbol}
+                        </div>
+
+                        {/* Info */}
+                        <div className="flex-1">
+                            <h3 className="font-black text-xl uppercase leading-none mb-1">{candidate.name}</h3>
+                            <p className={`text-sm font-bold uppercase tracking-wider ${selectedCandidate === candidate.id ? 'text-gray-300' : 'text-gray-500'}`}>{candidate.party}</p>
+                        </div>
+
+                        {/* Radio Check */}
+                        <div className={`w-8 h-8 border-4 flex items-center justify-center ${selectedCandidate === candidate.id ? 'border-white' : 'border-black'}`}>
+                             {selectedCandidate === candidate.id && <div className="w-4 h-4 bg-white" />}
                         </div>
                       </div>
                     ))}
                   </div>
+
                   <button
                     onClick={handleVote}
                     disabled={!selectedCandidate}
-                    className="w-full bg-black text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                    className="w-full bg-black text-white text-2xl font-black uppercase tracking-widest py-5 border-4 border-transparent hover:bg-white hover:text-black hover:border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none transition-all"
                   >
-                    Cast Vote
+                    Confirm & Vote
                   </button>
                 </>
               ) : (
-                <div className="text-center py-12">
-                  <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Vote Already Cast</h3>
-                  <p className="text-gray-600">
-                    You have successfully participated in this election. Thank you for your civic duty!
+                <div className="text-center py-16 border-4 border-dashed border-black bg-gray-50">
+                  <div className="inline-block p-4 bg-green-500 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-6">
+                       <CheckCircle className="h-12 w-12 text-black" />
+                  </div>
+                  <h3 className="text-3xl font-black text-black uppercase tracking-tighter mb-2">Vote Recorded</h3>
+                  <p className="text-black font-bold max-w-md mx-auto">
+                    Your vote has been successfully cast and encrypted on the blockchain. Thank you for voting!
                   </p>
                 </div>
               )}
@@ -253,13 +238,51 @@ const VoterDashboard = ({ user }) => {
       )}
 
     
+      {/* ID CARD TAB */}
       {activeTab === 'idcard' && (
         <div className="flex justify-center mt-8">
           <VoterCardGenerator />
         </div>
       )}
+      
+      {/* CONFIRMATION MODAL */}
+      {showConfirmation && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+              <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] max-w-md w-full p-8 text-center animate-in zoom-in duration-200">
+                  <h3 className="text-3xl font-black text-black uppercase mb-4">Confirm Your Vote?</h3>
+                  <p className="text-lg font-bold mb-8">
+                      You are about to vote for <span className="bg-black text-white px-2">{mockCandidates.find(c => c.id === selectedCandidate)?.name}</span>. 
+                      This action cannot be undone.
+                  </p>
+                  <div className="flex gap-4">
+                      <button 
+                        onClick={() => setShowConfirmation(false)}
+                        className="flex-1 py-3 font-black uppercase border-4 border-black hover:bg-gray-100 transition-colors"
+                      >
+                          Cancel
+                      </button>
+                      <button 
+                        onClick={confirmVote}
+                        className="flex-1 py-3 bg-black text-white font-black uppercase border-4 border-transparent hover:bg-white hover:text-black hover:border-black transition-all"
+                      >
+                          Yes, Vote
+                      </button>
+                  </div>
+              </div>
+          </div>
+      )}
+
+      </div>
     </div>
   );
 };
+
+// Helper Component for Profile Info
+const InfoField = ({ label, value, highlight }) => (
+    <div className={`p-3 border-2 border-black ${highlight ? 'bg-yellow-100' : 'bg-white'}`}>
+        <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">{label}</p>
+        <p className="font-bold text-lg text-black leading-tight">{value}</p>
+    </div>
+);
 
 export default VoterDashboard;
