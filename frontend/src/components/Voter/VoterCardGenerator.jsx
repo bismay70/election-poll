@@ -37,7 +37,7 @@ export default function VoterCardGenerator() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-xl mt-10">
+    <div className="max-w-xl mx-auto p-6 bg-gradient-to-br from-pink-50 to-white rounded-2xl shadow-xl mt-10 border border-pink-100">
       <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-900">🎫 Voter ID Card Generator</h2>
 
      

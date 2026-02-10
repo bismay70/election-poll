@@ -9,31 +9,41 @@ export default function Home() {
   return (
     <div className="bg-white min-h-screen font-sans text-gray-800">
       {/* Hero Section */}
-      <section className="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
-        {/* Background Image Effect */}
-        <div className="absolute inset-0 z-0">
-             <img 
-                src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/201904/general-elections-2019-m_660_042919091753.jpg"
-                alt="Background" 
-                className="w-full h-full object-cover opacity-30" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-50 via-white to-green-50 opacity-70"></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-4 opacity-90">
-                 <span className="text-orange-500 block md:inline">ONLINE</span> <span className="text-blue-900 block md:inline">ELECTION</span> <span className="text-green-600 block md:inline">PLATFORM</span>
+      {/* Hero Section */}
+      <section className="relative w-full min-h-[600px] flex flex-col md:flex-row items-center justify-between overflow-hidden bg-white">
+        
+        {/* Left Content */}
+        <div className="w-full md:w-1/2 px-8 md:px-16 flex flex-col justify-center py-12 md:py-0 z-10">
+             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">
+                 <span className="text-orange-500 block">ONLINE</span> 
+                 <span className="text-blue-900 block">ELECTION</span> 
+                 <span className="text-green-600 block">PLATFORM</span>
              </h1>
-             <p className="max-w-2xl mx-auto text-lg text-gray-700 font-medium mb-8">
+             <p className="text-lg text-gray-600 font-medium mb-8 max-w-lg leading-relaxed">
                India’s most trusted online voting solution, enabling citizens and organizations to conduct secure, transparent, and efficient elections anytime, anywhere.
              </p>
-             <button 
-                onClick={() => navigate('/login')}
-                className="group relative inline-flex justify-center py-3 px-10 border border-transparent text-sm font-bold rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 shadow-lg transform transition hover:scale-105"
-            >
-              Vote Now
-            </button>
+             <div>
+                <button 
+                    onClick={() => navigate('/login')}
+                    className="group relative inline-flex justify-center py-3 px-10 border border-transparent text-sm font-bold rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 shadow-lg transform transition hover:scale-105"
+                >
+                Vote Now
+                </button>
+             </div>
         </div>
+
+        {/* Right Image with Shape */}
+        <div className="w-full md:w-1/2 h-[400px] md:h-[600px] relative">
+             <div className="absolute inset-0 bg-blue-50 md:rounded-tl-[100px] md:rounded-bl-[50px] overflow-hidden">
+                <img 
+                    src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/201904/general-elections-2019-m_660_042919091753.jpg"
+                    alt="Voting" 
+                    className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-transparent"></div>
+             </div>
+        </div>
+
       </section>
 
       {/* Features Grid Section */}

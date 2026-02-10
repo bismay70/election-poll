@@ -13,14 +13,18 @@ import ScrollToTop from "./components/scrollToTop.jsx";
 import Login from "./components/Login.jsx";
 
 const sampleUser = {
-  name: 'Sachin Sethi',
-  voterId: 'OD123456789',
-  age: 21,
+  name: 'Amitabh Sharma',
+  voterId: 'IND19827364',
+  age: 42,
   gender: 'Male',
-  address: 'Plot No 2, Bhubaneswar, Odisha, India',
-  constituency: 'Bhubaneswar Central',
-  photo: 'https://randomuser.me/api/portraits/men/74.jpg',
+  dob: '12/05/1982',
+  address: 'H.No 45, Vasant Vihar, New Delhi, India',
+  constituency: 'New Delhi Central',
+  photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop', // Indian Man
   role: 'voter',
+  job: 'Software Engineer',
+  maritalStatus: 'Married',
+  phone: '+91 98765 43210'
 };
 
 export default function App() {
