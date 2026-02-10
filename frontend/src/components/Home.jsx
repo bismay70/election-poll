@@ -9,37 +9,31 @@ export default function Home() {
   return (
     <div className="bg-white min-h-screen font-sans text-gray-800">
       {/* Hero Section */}
-      <section className="relative w-full max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-        {/* Left Text Content */}
-        <div className="md:w-1/2 relative z-10">
-          <div className="border-4 border-black p-8 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-lg">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
-              India’s most trusted online voting solution
-            </h1>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              Enabling citizens and organizations to conduct secure, transparent, and efficient elections anytime, anywhere. Experience the future of voting with 100% transparency.
-            </p>
-            <button 
+      <section className="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
+        {/* Background Image Effect */}
+        <div className="absolute inset-0 z-0">
+             <img 
+                src="/images/flag_bg.jpg" // Assuming we might use a flag image or similar generic Indian theme background
+                onError={(e) => e.target.src = "https://img.freepik.com/free-vector/indian-flag-theme-abstract-flag-design-background_1055-10580.jpg"}
+                alt="Background" 
+                className="w-full h-full object-cover opacity-20"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-100 via-white to-green-100 opacity-60"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-4 opacity-90">
+                 <span className="text-orange-500 block md:inline">ONLINE</span> <span className="text-blue-900 block md:inline">ELECTION</span> <span className="text-green-600 block md:inline">PLATFORM</span>
+             </h1>
+             <p className="max-w-2xl mx-auto text-lg text-gray-700 font-medium mb-8">
+               India’s most trusted online voting solution, enabling citizens and organizations to conduct secure, transparent, and efficient elections anytime, anywhere.
+             </p>
+             <button 
                 onClick={() => navigate('/login')}
-                className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-y-1 active:shadow-none"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transform transition hover:scale-105"
             >
               Vote Now
             </button>
-          </div>
-        </div>
-
-        {/* Right Image Content & Yellow Background */}
-        <div className="md:w-1/2 relative">
-          {/* Blue Background Block */}
-          <div className="absolute top-0 right-0 w-3/4 h-full bg-blue-100 -z-10 rounded-sm transform translate-x-4 -translate-y-4"></div>
-          
-          <div className="relative z-10">
-            <img 
-              src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/201904/general-elections-2019-m_660_042919091753.jpg"
-              alt="Voting Process" 
-              className="w-full h-auto object-cover shadow-xl border-2 border-black"
-            />
-          </div>
         </div>
       </section>
 

@@ -35,7 +35,15 @@ const pieData = [
 
 const COLORS = ['#60a5fa', '#e5e7eb']; // Blue-400
 
-// ... (keep pieData and barData same)
+const barData = [
+  { name: 'Mon', value: 20 },
+  { name: 'Tue', value: 40 },
+  { name: 'Wed', value: 35 },
+  { name: 'Thu', value: 50 },
+  { name: 'Fri', value: 45 },
+  { name: 'Sat', value: 60 },
+  { name: 'Sun', value: 55 },
+];
 
 export default function Dashboard() {
   return (
@@ -55,22 +63,17 @@ export default function Dashboard() {
             <LayoutDashboard className="h-5 w-5" />
             Dashboard
           </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
-            <ListTodo className="h-5 w-5" />
-            Tasks
-          </a>
-          {/* ... keeping other links same but potentially generic hover */}
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
-             <CalendarDays className="h-5 w-5" />
-            Calendar
-          </a>
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
-             <BarChart3 className="h-5 w-5" />
-            Analytics
-          </a>
            <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
              <Users className="h-5 w-5" />
-            Teams
+            Voters
+          </a>
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+              <BarChart3 className="h-5 w-5" />
+             Analytics
+           </a>
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+             <CalendarDays className="h-5 w-5" />
+            Calendar
           </a>
         </nav>
 
@@ -279,28 +282,24 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-bold text-lg text-gray-800">Team Collaboration</h3>
+                    <h3 className="font-bold text-lg text-gray-800">Calendar View</h3>
                      <button className="text-sm font-semibold text-blue-600 border border-blue-200 px-3 py-1 rounded-md hover:bg-blue-50">
-                        + Add Member
+                        View Full
                     </button>
                 </div>
-                {/* List Items */}
-                <div className="space-y-4">
-                    {[1, 2, 3].map((i) => (
-                        <div key={i} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                            <div className="flex items-center gap-3">
-                                <img src={`https://randomuser.me/api/portraits/men/${i+20}.jpg`} alt="User" className="w-10 h-10 rounded-full" />
-                                <div>
-                                    <h4 className="font-bold text-sm text-gray-800">Member Name {i}</h4>
-                                    <p className="text-xs text-gray-500">Election Commitee</p>
-                                </div>
-                            </div>
-                            <span className="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-700 rounded">Active</span>
-                        </div>
-                    ))}
+                {/* Simple Calendar Grid */}
+                <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                         <div key={day} className="font-semibold text-gray-400 mb-2">{day}</div>
+                     ))}
+                     {Array.from({length: 31}, (_, i) => i + 1).map(date => (
+                         <div key={date} className={`p-2 rounded-lg ${date === 24 ? 'bg-blue-600 text-white' : 'hover:bg-gray-50 text-gray-700'}`}>
+                             {date}
+                             {date === 24 && <div className="w-1 h-1 bg-white rounded-full mx-auto mt-1"></div>}
+                         </div>
+                     ))}
                 </div>
             </div>
-
             <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
                 <h3 className="font-bold text-lg text-gray-800 mb-6">Project Progress</h3>
                 <div className="relative h-48 flex items-center justify-center">
