@@ -33,7 +33,7 @@ const pieData = [
   { name: 'Not Voted', value: 300 },
 ];
 
-const COLORS = ['#60a5fa', '#e5e7eb']; // Blue-400
+const COLORS = ['#3b82f6', '#d1d5db']; // Blue-500, Gray-300
 
 const barData = [
   { name: 'Mon', value: 20 },
@@ -67,28 +67,28 @@ const CalendarWidget = () => {
     };
 
     return (
-        <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-             <div className="flex justify-between items-center mb-6">
-                <h3 className="font-bold text-lg text-gray-800">Calendar</h3>
+        <div className="lg:col-span-2 bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+             <div className="flex justify-between items-center mb-6 border-b-4 border-black pb-4">
+                <h3 className="font-black text-lg text-black uppercase tracking-tight">Calendar</h3>
                 <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-1">
-                        <button onClick={prevMonth} className="p-1 hover:bg-white rounded-md shadow-sm transition-all text-gray-600">
+                    <div className="flex items-center gap-2 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        <button onClick={prevMonth} className="p-1 hover:bg-black hover:text-white transition-all text-black border border-transparent hover:border-black rounded-none">
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
-                        <span className="text-sm font-semibold text-gray-800 w-32 text-center select-none">
+                        <span className="text-sm font-black text-black w-32 text-center select-none uppercase">
                              {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                         </span>
-                        <button onClick={nextMonth} className="p-1 hover:bg-white rounded-md shadow-sm transition-all text-gray-600">
+                        <button onClick={nextMonth} className="p-1 hover:bg-black hover:text-white transition-all text-black border border-transparent hover:border-black rounded-none">
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
                     </div>
                     <button 
                         onClick={() => setCurrentDate(new Date())}
-                        className="text-xs font-semibold text-blue-600 border border-blue-200 px-3 py-1.5 rounded-md hover:bg-blue-50 transition-colors"
+                        className="text-xs font-black text-white bg-blue-600 border-2 border-black px-3 py-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all uppercase"
                     >
                         Today
                     </button>
@@ -97,7 +97,7 @@ const CalendarWidget = () => {
             {/* Functional Calendar Grid */}
             <div className="grid grid-cols-7 gap-2 text-center text-sm">
                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                     <div key={day} className="font-semibold text-gray-400 mb-2 py-2">{day}</div>
+                     <div key={day} className="font-black text-gray-500 mb-2 py-2 uppercase tracking-wide">{day}</div>
                  ))}
                  {(() => {
                     const days = [];
@@ -114,7 +114,7 @@ const CalendarWidget = () => {
                             currentDate.getFullYear() === today.getFullYear();
                         
                         days.push(
-                            <div key={i} className={`p-2 rounded-lg cursor-pointer transition-colors ${isToday ? 'bg-blue-600 text-white shadow-md' : 'hover:bg-blue-50 text-gray-700'}`}>
+                            <div key={i} className={`p-2 font-bold cursor-pointer border-2 transition-all ${isToday ? 'bg-blue-600 text-white border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' : 'border-transparent hover:border-black hover:bg-blue-50 text-gray-700'}`}>
                                 {i}
                             </div>
                         );
@@ -128,105 +128,104 @@ const CalendarWidget = () => {
 
 export default function Dashboard() {
   return (
-    <div className="flex h-screen bg-gray-50 font-sans">
+    <div className="flex h-screen bg-gray-50 font-sans text-black">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col">
-        <div className="p-6 flex items-center gap-3">
-          <div className="bg-blue-500 p-2 rounded-lg">
+      <aside className="w-64 bg-white border-r-4 border-black hidden md:flex flex-col">
+        <div className="p-6 flex items-center gap-3 bg-blue-50 border-b-4 border-black">
+          <div className="bg-black p-2 border-2 border-transparent">
             <LayoutDashboard className="text-white h-6 w-6" />
           </div>
-          <span className="text-xl font-bold text-gray-800">ElectPoll</span>
+          <span className="text-2xl font-black text-black uppercase tracking-tighter">ElectPoll</span>
         </div>
 
-        <nav className="flex-1 px-4 py-4 space-y-1">
-          <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu</p>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-700 rounded-lg font-medium">
+        <nav className="flex-1 px-4 py-6 space-y-2">
+          <p className="px-4 text-xs font-black text-black uppercase tracking-widest mb-4 bg-yellow-300 inline-block py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform -rotate-2">Menu</p>
+          <a href="#" className="flex items-center gap-3 px-4 py-3 bg-blue-100 border-2 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all font-bold">
             <LayoutDashboard className="h-5 w-5" />
             Dashboard
           </a>
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all font-bold">
              <Users className="h-5 w-5" />
             Voters
           </a>
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all font-bold">
               <BarChart3 className="h-5 w-5" />
              Analytics
            </a>
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all font-bold">
              <CalendarDays className="h-5 w-5" />
             Calendar
           </a>
         </nav>
 
-        <div className="px-4 py-4 space-y-1 mb-8">
-           <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">General</p>
+        <div className="px-4 py-4 space-y-2 mb-8 border-t-4 border-black pt-6">
+           <p className="px-4 text-xs font-black text-black uppercase tracking-widest mb-2">General</p>
            {/* ... Settings, Help, Logout */}
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all font-bold">
              <Settings className="h-5 w-5" />
             Settings
           </a>
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all font-bold">
              <HelpCircle className="h-5 w-5" />
             Help
           </a>
-           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+           <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all font-bold">
              <LogOut className="h-5 w-5" />
             Logout
           </a>
         </div>
         
-         <div className="p-4 mx-4 mb-4 bg-blue-900 rounded-2xl text-white relative overflow-hidden">
+         <div className="p-4 mx-4 mb-4 bg-black border-2 border-black text-white relative overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">
             <div className="relative z-10">
-                <h4 className="font-bold text-lg mb-1">Mobile App</h4>
-                <p className="text-xs text-blue-200 mb-3">Download our app for better experience</p>
-                <button className="bg-blue-500 hover:bg-blue-400 text-white text-xs px-3 py-2 rounded-lg font-semibold transition-colors">
+                <h4 className="font-black text-lg mb-1 uppercase tracking-tight">Mobile App</h4>
+                <p className="text-xs text-gray-300 mb-3 font-medium">Download our app for better experience</p>
+                <button className="bg-white text-black border-2 border-transparent hover:border-white hover:bg-black hover:text-white text-xs px-3 py-2 font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:shadow-none">
                     Download
                 </button>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-500 rounded-full opacity-20"></div>
-            <div className="absolute top-4 -right-8 w-16 h-16 bg-blue-400 rounded-full opacity-20"></div>
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gray-800 rounded-full opacity-50"></div>
          </div>
 
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-8">
+      <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50">
         
         {/* Header/Topbar */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 bg-white p-4 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
              {/* Search */}
              <div className="relative w-full md:w-96">
                 <input 
                     type="text" 
-                    placeholder="Search elections,voters and see analytics" 
-                    className="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm text-gray-600"
+                    placeholder="SEARCH ELECTIONS, VOTERS..." 
+                    className="w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-black focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all font-bold text-sm text-black placeholder-gray-500 rounded-none uppercase"
                 />
-                <div className="absolute left-3 top-2.5 text-gray-400">
+                <div className="absolute left-3 top-3.5 text-black">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
             </div>
 
             <div className="flex items-center gap-6">
-                <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                <button className="relative p-2 text-black hover:bg-yellow-300 border-2 border-transparent hover:border-black transition-all rounded-none">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                     <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                     <span className="absolute top-1 right-1 w-3 h-3 bg-red-500 border-2 border-black rounded-full"></span>
                 </button>
-                 <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                 <button className="relative p-2 text-black hover:bg-yellow-300 border-2 border-transparent hover:border-black transition-all rounded-none">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
-                    <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    <span className="absolute top-1 right-1 w-3 h-3 bg-red-500 border-2 border-black rounded-full"></span>
                 </button>
-                <div className="flex items-center gap-3 pl-6 border-l border-gray-200">
+                <div className="flex items-center gap-3 pl-6 border-l-4 border-black">
                     <div className="text-right hidden md:block">
-                        <p className="text-sm font-bold text-gray-900">Admin User</p>
-                        <p className="text-xs text-gray-500">admin@electpoll.com</p>
+                        <p className="text-sm font-black text-black uppercase">Admin User</p>
+                        <p className="text-xs text-gray-600 font-bold">admin@electpoll.com</p>
                     </div>
-                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" className="w-10 h-10 rounded-full border-2 border-blue-500" />
+                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" className="w-10 h-10 rounded-none border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
                 </div>
             </div>
         </header>
@@ -234,16 +233,18 @@ export default function Dashboard() {
         {/* Dashboard Title & Actions */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
              <div>
-                <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
-                <p className="text-gray-500">Plan, prioritize, and monitor the election process.</p>
+                <h1 className="text-5xl font-black text-black mb-2 uppercase tracking-tighter">Dashboard</h1>
+                <div className="bg-yellow-300 inline-block px-2 py-1 border-2 border-black transform -rotate-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <p className="text-black font-bold text-sm uppercase">Plan, prioritize, and monitor.</p>
+                </div>
             </div>
              <div className="flex items-center gap-3">
-                 <button className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 active:scale-95">
+                 <button className="flex items-center gap-2 bg-black text-white px-6 py-3 font-black uppercase tracking-wider border-2 border-transparent hover:bg-white hover:text-black hover:border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
                     <Plus className="h-5 w-5" />
                     New Election
                 </button>
-                 <button className="border-2 border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl font-bold hover:bg-gray-50 transition-colors">
-                    Import Voter Data
+                 <button className="bg-white text-black px-6 py-3 font-black uppercase tracking-wider border-2 border-black hover:bg-gray-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+                    Import Data
                 </button>
             </div>
         </div>
@@ -252,108 +253,108 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             
             {/* Card 1 */}
-            <div className="bg-blue-600 rounded-xl p-6 text-white relative overflow-hidden shadow-lg shadow-blue-100">
-                <div className="flex justify-between items-start mb-4">
-                    <span className="text-blue-100 font-medium">Total Voters</span>
-                    <div className="bg-blue-500 p-1 rounded-full">
+            <div className="bg-blue-600 p-6 text-white relative overflow-hidden border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="flex justify-between items-start mb-4 relative z-10">
+                    <span className="text-white font-black uppercase tracking-widest border-b-2 border-white pb-1">Total Voters</span>
+                    <div className="bg-black p-1 border-2 border-white shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
                         <ArrowUpRight className="h-4 w-4 text-white" />
                     </div>
                 </div>
-                <h3 className="text-4xl font-bold mb-2">24k</h3>
-                <p className="text-xs text-blue-100 flex items-center gap-1">
-                    <span className="bg-blue-500 px-1 rounded text-white">+12%</span>
-                    from last month
+                <h3 className="text-5xl font-black mb-2 relative z-10">24k</h3>
+                <p className="text-xs text-white flex items-center gap-2 relative z-10 font-bold">
+                    <span className="bg-black px-2 py-0.5 text-white border border-white shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">+12%</span>
+                    FROM LAST MONTH
                 </p>
-                 <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-500 rounded-full opacity-30"></div>
+                 <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-black opacity-20 transform rotate-45 border-4 border-white"></div>
             </div>
 
              {/* Card 2 */}
-            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-default">
                 <div className="flex justify-between items-start mb-4">
-                    <span className="text-gray-500 font-medium">Candidates</span>
-                     <div className="bg-gray-100 p-1 rounded-full">
-                        <ArrowUpRight className="h-4 w-4 text-gray-500" />
+                    <span className="text-gray-500 font-black uppercase tracking-widest border-b-2 border-gray-200 pb-1">Candidates</span>
+                     <div className="bg-gray-100 p-1 border-2 border-black">
+                        <ArrowUpRight className="h-4 w-4 text-black" />
                     </div>
                 </div>
-                <h3 className="text-4xl font-bold mb-2 text-gray-900">10</h3>
-                 <p className="text-xs text-gray-400 flex items-center gap-1">
-                    <span className="text-blue-600 font-bold">+2</span>
+                <h3 className="text-5xl font-black mb-2 text-black">10</h3>
+                 <p className="text-xs text-gray-500 flex items-center gap-2 font-bold uppercase">
+                    <span className="text-blue-600 bg-blue-100 px-1 border border-black">+2</span>
                     new this week
                 </p>
             </div>
 
              {/* Card 3 */}
-             <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+             <div className="bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-default">
                 <div className="flex justify-between items-start mb-4">
-                    <span className="text-gray-500 font-medium">Active Elections</span>
-                     <div className="bg-gray-100 p-1 rounded-full">
-                        <ArrowUpRight className="h-4 w-4 text-gray-500" />
+                    <span className="text-gray-500 font-black uppercase tracking-widest border-b-2 border-gray-200 pb-1">Active Elections</span>
+                     <div className="bg-gray-100 p-1 border-2 border-black">
+                        <ArrowUpRight className="h-4 w-4 text-black" />
                     </div>
                 </div>
-                <h3 className="text-4xl font-bold mb-2 text-gray-900">12</h3>
-                 <p className="text-xs text-gray-400 flex items-center gap-1">
-                    <span className="text-red-500 font-bold">-1</span>
+                <h3 className="text-5xl font-black mb-2 text-black">12</h3>
+                 <p className="text-xs text-gray-500 flex items-center gap-2 font-bold uppercase">
+                    <span className="text-red-500 bg-red-100 px-1 border border-black">-1</span>
                     from last month
                 </p>
             </div>
 
              {/* Card 4 */}
-            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-default">
                 <div className="flex justify-between items-start mb-4">
-                    <span className="text-gray-500 font-medium">Pending Approvals</span>
-                     <div className="bg-gray-100 p-1 rounded-full">
-                        <ArrowUpRight className="h-4 w-4 text-gray-500" />
+                    <span className="text-gray-500 font-black uppercase tracking-widest border-b-2 border-gray-200 pb-1">Pending</span>
+                     <div className="bg-gray-100 p-1 border-2 border-black">
+                        <ArrowUpRight className="h-4 w-4 text-black" />
                     </div>
                 </div>
-                <h3 className="text-4xl font-bold mb-2 text-gray-900">2</h3>
-                 <p className="text-xs text-gray-400">On Check</p>
+                <h3 className="text-5xl font-black mb-2 text-black">2</h3>
+                 <p className="text-xs text-black bg-yellow-300 inline-block px-1 border border-black font-bold uppercase">On Check</p>
             </div>
         </div>
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             {/* Main Bar Chart */}
-            <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-bold text-lg text-gray-800">Voter Analytics</h3>
-                    <button className="text-gray-400 hover:text-gray-600">
+            <div className="lg:col-span-2 bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="flex justify-between items-center mb-6 border-b-4 border-black pb-4">
+                    <h3 className="font-black text-lg text-black uppercase tracking-tight">Voter Analytics</h3>
+                    <button className="text-black hover:bg-gray-100 p-1 border-2 border-transparent hover:border-black transition-all">
                         <MoreHorizontal className="h-5 w-5" />
                     </button>
                 </div>
                 <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={barData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} />
-                            <YAxis axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} />
-                            <Tooltip cursor={{fill: '#eff6ff'}} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'}} />
-                            <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={40} />
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: 'black', fontWeight: 'bold', fontSize: 12}} />
+                            <YAxis axisLine={false} tickLine={false} tick={{fill: 'black', fontWeight: 'bold', fontSize: 12}} />
+                            <Tooltip cursor={{fill: '#f3f4f6'}} contentStyle={{border: '2px solid black', boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)', borderRadius: '0px', fontWeight: 'bold'}} />
+                            <Bar dataKey="value" fill="#3b82f6" radius={[0, 0, 0, 0]} barSize={40} stroke="black" strokeWidth={2} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
             </div>
 
             {/* Reminders / Secondary Card */}
-            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex flex-col justify-between">
+            <div className="bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
                 <div>
-                    <h3 className="font-bold text-lg text-gray-800 mb-1">Reminders</h3>
-                    <p className="text-gray-500 text-sm mb-6">Upcoming Election Deadlines</p>
+                    <h3 className="font-black text-lg text-black mb-1 uppercase tracking-tight border-b-4 border-black pb-2">Reminders</h3>
+                    <p className="text-gray-500 text-xs font-bold uppercase mb-6 mt-2">Upcoming Deadlines</p>
                     
                     <div className="space-y-4">
-                        <div className="flex items-start gap-4">
-                            <div className="bg-blue-100 p-3 rounded-lg text-center min-w-[3.5rem]">
-                                <span className="block text-xs text-gray-500 uppercase font-bold">Feb</span>
-                                <span className="block text-xl font-bold text-blue-700">24</span>
+                        <div className="flex items-start gap-4 group cursor-pointer">
+                            <div className="bg-yellow-300 p-3 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-center min-w-[3.5rem] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-none transition-all">
+                                <span className="block text-xs text-black uppercase font-black">Feb</span>
+                                <span className="block text-2xl font-black text-black">24</span>
                             </div>
                             <div>
-                                <h4 className="font-bold text-gray-800">Voter Registration Ends</h4>
-                                <p className="text-xs text-gray-500">10:00 AM - 04:00 PM</p>
+                                <h4 className="font-black text-black uppercase text-sm group-hover:underline">Voter Registration</h4>
+                                <p className="text-xs text-black bg-gray-100 inline-block px-1 border border-black font-bold mt-1">10:00 AM - 04:00 PM</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                 <button className="w-full bg-blue-800 text-white py-3 rounded-lg font-bold mt-6 hover:bg-blue-900 transition-colors shadow-lg shadow-blue-100">
+                 <button className="w-full bg-black text-white py-3 font-black uppercase tracking-wider mt-6 border-2 border-transparent hover:bg-white hover:text-black hover:border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
                     View All Reminders
                 </button>
             </div>
@@ -363,8 +364,8 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <CalendarWidget />
 
-            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                <h3 className="font-bold text-lg text-gray-800 mb-6">Project Progress</h3>
+            <div className="bg-white p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <h3 className="font-black text-lg text-black mb-6 border-b-4 border-black pb-4 uppercase tracking-tight">Project Progress</h3>
                 <div className="relative h-48 flex items-center justify-center">
                     <PieChart width={200} height={200}>
                         <Pie
@@ -375,16 +376,18 @@ export default function Dashboard() {
                             outerRadius={80}
                             startAngle={180}
                             endAngle={0}
-                            paddingAngle={5}
+                            paddingAngle={0}
                             dataKey="value"
+                            stroke="black"
+                            strokeWidth={2}
                         >
                             <Cell fill="#3b82f6" />
                             <Cell fill="#e5e7eb" />
                         </Pie>
                     </PieChart>
                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center mt-4">
-                        <span className="text-3xl font-bold text-gray-900">75%</span>
-                        <p className="text-xs text-gray-500">Completed</p>
+                        <span className="text-4xl font-black text-black">75%</span>
+                        <p className="text-xs text-gray-500 font-bold uppercase">Completed</p>
                     </div>
                 </div>
             </div>

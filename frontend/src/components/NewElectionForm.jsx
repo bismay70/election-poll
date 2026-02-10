@@ -17,32 +17,35 @@ export default function NewElectionForm({ onCreate }) {
 
   return (
     <form
-      className="bg-white rounded-2xl shadow-xl p-8 max-w-lg mx-auto mt-12 mb-16 border border-gray-100"
+      className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8 max-w-lg mx-auto mt-12 mb-16 relative"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-2xl font-extrabold mb-6 text-center text-gray-800">
+      {/* Decorative corner */}
+      <div className="absolute top-0 right-0 w-8 h-8 bg-blue-400 border-l-4 border-b-4 border-black"></div>
+
+      <h2 className="text-3xl font-black mb-8 text-center text-black uppercase tracking-tighter">
          Create New Election
       </h2>
 
    
-      <div className="mb-5">
-        <label className="block font-semibold text-gray-700 mb-2">Election Name</label>
+      <div className="mb-6">
+        <label className="block font-bold text-black uppercase tracking-wide text-xs mb-2">Election Name</label>
         <input
           type="text"
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          className="w-full border-2 border-black px-4 py-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all bg-gray-50 placeholder-gray-400 rounded-none"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Enter election name"
+          placeholder="ENTER ELECTION NAME"
           required
         />
       </div>
 
     
-      <div className="mb-5">
-        <label className="block font-semibold text-gray-700 mb-2">Date</label>
+      <div className="mb-6">
+        <label className="block font-bold text-black uppercase tracking-wide text-xs mb-2">Date</label>
         <input
           type="date"
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          className="w-full border-2 border-black px-4 py-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all bg-gray-50 rounded-none"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
@@ -51,13 +54,13 @@ export default function NewElectionForm({ onCreate }) {
 
     
       <div className="mb-8">
-        <label className="block font-semibold text-gray-700 mb-2">Constituency</label>
+        <label className="block font-bold text-black uppercase tracking-wide text-xs mb-2">Constituency</label>
         <input
           type="text"
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          className="w-full border-2 border-black px-4 py-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all bg-gray-50 placeholder-gray-400 rounded-none"
           value={constituency}
           onChange={(e) => setConstituency(e.target.value)}
-          placeholder="Enter constituency"
+          placeholder="ENTER CONSTITUENCY"
           required
         />
       </div>
@@ -66,7 +69,7 @@ export default function NewElectionForm({ onCreate }) {
       <div className="text-center">
         <button
           type="submit"
-          className="bg-gradient-to-r from-indigo-800 to-black text-white px-8 py-3 rounded-xl font-semibold hover:from-purple-700 hover:to-black shadow-lg transition transform hover:scale-105"
+          className="w-full bg-black text-white px-8 py-4 font-black uppercase tracking-widest border-2 border-transparent hover:bg-white hover:text-black hover:border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all transform active:translate-y-1"
         >
           Create Election
         </button>
