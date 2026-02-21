@@ -6,7 +6,7 @@ const generateToken = (id) => jwt.sign({id}, process.env.JWT_SECRET, {expiresIn:
 const register =  async (req,res) => {
 try{
     const {name, email, password, role} = req.body;
-    if (await User.findOne({email})) 
+    if (await User.findOne({ email: email.toLowerCase() }))
         return res.status(400).json({message: 'Email Already in Use'});
     
     let assignedRole = "voter";
@@ -36,25 +36,44 @@ try{
 }}
 
 
-const login = async (req,res) => {
-    try {
-      const { email, password }  = req.body;
-      const user = await User.findOne({email});
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-      if(!user || !await user.matchPassword(password))
-        return res.status(401).json({message: "Invalid Credentials!"});
-    
-      res.json({
-        _id: user.id, 
-        name: user.name, 
-        email: user.email, 
-        role: user.role,
-        token: generateToken(user.id)
-      })
+    console.log("Email entered:", email);
 
-    } catch (err) {
-        res.status(500).json({message: err.message});
+    const user = await User.findOne({
+      email: email.toLowerCase()
+    });
+
+    console.log("User found:", user);
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(401).json({ message: "Invalid Credentials!" });
     }
-}
+
+    const isMatch = await user.matchPassword(password);
+    console.log("Password match result:", isMatch);
+
+    if (!isMatch) {
+      console.log("Password incorrect");
+      return res.status(401).json({ message: "Invalid Credentials!" });
+    }
+
+    res.json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user.id),
+    });
+
+  } catch (err) {
+    console.log("Login error:", err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
 
 module.exports = {register, login};

@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState("voter");
+  const [role, setRole] = useState("voter");
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [success, setSuccess] = useState(false);
@@ -26,8 +28,20 @@ const Login = () => {
     setError("");
     setSuccess(false);
 
-    if (!formData.email || !formData.password) {
+    const { name, email, password, confirmPassword } = formData;
+
+    if (!name || !email || !password || !confirmPassword) {
       setError("All fields are mandatory!");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       return;
     }
 
@@ -35,23 +49,21 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        formData
+        `${import.meta.env.VITE_API_URL}/auth/register`,
+        { name, email, password, role }
       );
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
+      if (response.status === 201) {
+        setSuccess(true);
 
-      setSuccess(true);
-
-      setTimeout(() => {
-        navigate(`/${response.data.role}`);
-      }, 1200);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+      }
 
     } catch (err) {
       setError(
-        err.response?.data?.message ||
-        "Login failed. Please try again."
+        err.response?.data?.message || "Registration failed. Please try again."
       );
     } finally {
       setLoading(false);
@@ -63,12 +75,12 @@ const Login = () => {
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
 
         <h2 className="text-3xl font-bold text-center mb-6">
-          Election Poll Login
+          Election Poll Register
         </h2>
 
         {success && (
           <div className="mb-4 rounded-lg bg-green-100 text-green-800 px-4 py-3 text-center">
-            Login successful!
+            Registration successful!
           </div>
         )}
 
@@ -79,13 +91,13 @@ const Login = () => {
         )}
 
         <div className="flex mb-2 bg-gray-100 rounded-lg overflow-hidden">
-          {["voter", "candidate", "admin"].map((r) => (
+          {["voter", "admin"].map((r) => (
             <button
               key={r}
               type="button"
-              onClick={() => setSelectedRole(r)}
+              onClick={() => setRole(r)}
               className={`flex-1 py-2 font-semibold transition ${
-                selectedRole === r
+                role === r
                   ? "bg-indigo-600 text-white"
                   : "text-gray-600 hover:bg-gray-200"
               }`}
@@ -95,11 +107,24 @@ const Login = () => {
           ))}
         </div>
 
-        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+        <p className="text-sm text-gray-400 text-center mt-4 mb-4">
+          N.B.: Candidates cannot self-register. Please contact Admin.
+        </p>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            className="w-full border border-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30 transition duration-200"
+            value={formData.name}
+            onChange={handleChange}
+          />
+
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email Address"
             className="w-full border border-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30 transition duration-200"
             value={formData.email}
             onChange={handleChange}
@@ -114,6 +139,15 @@ const Login = () => {
             onChange={handleChange}
           />
 
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            className="w-full border border-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30 transition duration-200"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+
           <button
             type="submit"
             disabled={loading}
@@ -123,17 +157,17 @@ const Login = () => {
                 : "bg-indigo-600 hover:bg-indigo-700"
             }`}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Registering..." : `Register as ${role}`}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Not registered yet?{" "}
+          Already registered?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="text-indigo-600 font-medium hover:underline"
           >
-            Register
+            Login
           </Link>
         </p>
 
@@ -142,4 +176,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

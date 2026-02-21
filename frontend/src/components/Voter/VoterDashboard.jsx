@@ -74,73 +74,18 @@ const VoterDashboard = ({ user }) => {
 
      
       {activeTab === 'home' && (
-        <div className="bg-white rounded-xl shadow-sm p-8 mb-8 border border-blue-100 relative overflow-hidden">
-            {/* Background Decor */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-bl-full z-0 opacity-50"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gray-100 rounded-tr-full z-0 opacity-50"></div>
-            
-            <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
-                
-                {/* Image Section */}
-                <div className="relative">
-                    <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-20">
-                        <img
-                            src={user.photo} 
-                            alt="Profile"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    {/* Decorative Circle behind */}
-                    <div className="absolute top-4 -left-4 w-64 h-64 rounded-full bg-blue-100 -z-10 blur-xl opacity-60"></div>
-                     {/* Striped Pattern */}
-                     <div className="absolute -bottom-6 -right-6 w-32 h-12 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAOklEQVQYV2NkYGAwYmBg0GBgYGiAMwgwMjNamJmXT2VkZKwjwZOMDIwWKGCkaqCFmXn5VEZGxjoSPAkAzOQRCtcVKu4AAAAASUVORK5CYII=')] opacity-20 transform -rotate-12 z-0"></div>
-                </div>
-
-                {/* Text Content */}
-                <div className="flex-1 text-left">
-                    <div className="mb-6 relative">
-                        <h2 className="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-2" style={{fontFamily: 'Impact, sans-serif'}}>
-                            ABOUT <span className="text-blue-600">VOTER</span>
-                        </h2>
-                        <div className="w-24 h-2 bg-black mb-6"></div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-700">
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Full Name</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.name}</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Voter ID</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.voterId}</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Region / Constituency</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.constituency}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Address</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1Truncate">{user.address}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Occupation</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.job || 'N/A'}</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Marital Status</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.maritalStatus || 'N/A'}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Age / Gender</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.age} Years / {user.gender}</p>
-                        </div>
-                         <div className="space-y-1">
-                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Phone</p>
-                            <p className="font-bold text-lg border-b border-pink-100 pb-1">{user.phone || 'N/A'}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="bg-gradient-to-r from-blue-100 via-white to-green-100 rounded-xl shadow-md p-8 mb-8 text-center">
+          <img
+            src="/images/Screenshot 2025-08-16 130700.png"
+            alt="Welcome Voter"
+            className="w-94 h-94 rounded-full shadow-lg mb-5 mx-auto"
+          />
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-5">
+            Welcome, {user.name}!
+          </h2>
+          <p className="text-gray-700 max-w-lg mx-auto text-lg">
+            Cast your vote securely, explore candidate details, and generate your digital voter ID card instantly!
+          </p>
         </div>
       )}
 

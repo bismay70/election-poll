@@ -1,306 +1,200 @@
 import React, { useState } from 'react';
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell
-} from 'recharts';
-import { 
-  Settings, 
-  Users, 
-  ShoppingCart, 
-  ThumbsUp, 
-  MoreHorizontal,
-  MapPin,
-  MessageSquare,
-  Search,
-  LayoutDashboard,
-  FileText,
-  Mail,
-  Calendar,
-  Image as ImageIcon,
-  BarChart3,
-  LogOut
-} from 'lucide-react';
+import { BarChart3, Users, Vote, Settings, Plus, Eye } from 'lucide-react';
 
-// Mock Data for Charts
-const areaData = [
-  { name: 'Jan', sales: 4000, visits: 2400 },
-  { name: 'Feb', sales: 3000, visits: 1398 },
-  { name: 'Mar', sales: 2000, visits: 9800 },
-  { name: 'Apr', sales: 2780, visits: 3908 },
-  { name: 'May', sales: 1890, visits: 4800 },
-  { name: 'Jun', sales: 2390, visits: 3800 },
-  { name: 'Jul', sales: 3490, visits: 4300 },
+const mockElections = [
+	{
+		id: 'webwiz',
+		name: 'Webwiz Election',
+		startDate: '2024-06-01',
+		endDate: '2024-06-07',
+		status: 'active',
+		constituencies: ['pod 1', 'pod 2', 'pod 3', 'pod 4', 'pod 5', 'pod 6', 'pod 7', 'pod 8'],
+	},
+	{
+		id: 'sac',
+		name: 'SAC Election',
+		startDate: '2024-07-10',
+		endDate: '2024-07-15',
+		status: 'upcoming',
+		constituencies: ['Zone bbsr', 'Zone eastern'],
+	},
 ];
 
-const pieData = [
-  { name: 'Chrome', value: 400 },
-  { name: 'Safari', value: 300 },
-  { name: 'Firefox', value: 300 },
-  { name: 'IE', value: 200 },
-];
-
-const COLORS = ['#ef4444', '#3b82f6', '#f59e0b', '#10b981'];
-
-const GoogleMapComponent = () => {
-    React.useEffect(() => {
-        // Initialize the map
-        const initMap = async () => {
-            if (!window.google) {
-                // Load the Google Maps script dynamically if it doesn't exist
-                 (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-                 ({key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, v: "weekly"});
-            }
-
-            try {
-                // Wait a brief moment for the script to attach or just use the promise if using a proper loader
-                // Since the snippet provided is a bit raw, we interpret it as loading the lib.
-                // However, directly calling importLibrary right after might be too fast if script isn't loaded.
-                // The snippet actually sets up `google.maps.importLibrary` immediately to wait.
-                
-                const { Map } = await google.maps.importLibrary("maps");
-        
-                new Map(document.getElementById("map"), {
-                    center: { lat: 20.5937, lng: 78.9629 }, // India
-                    zoom: 5,
-                });
-            } catch (error) {
-                console.error("Google Maps Error:", error);
-            }
-        };
-
-        initMap();
-    }, []);
-
-    return <div id="map" className="w-full h-full min-h-[300px]" />;
+const resultsData = {
+	webwiz: [
+		{ candidate: 'Sanket bhai', party: 'Frontend First', votes: 80, percentage: 56.2 },
+		{ candidate: 'Swasti bhai', party: 'API Alliance', votes: 60, percentage: 43.8 },
+	],
+	sac: [
+		{ candidate: 'Sanket bha', party: 'Student Unity', votes: 70, percentage: 60 },
+		{ candidate: 'Swasti bhai', party: 'Campus Forward', votes: 40, percentage: 40 },
+	],
 };
 
-export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('dashboard_v2');
+const AdminDashboard = () => {
+	const [activeTab, setActiveTab] = useState('overview');
+	const [selectedResultElection, setSelectedResultElection] = useState('webwiz');
 
-  return (
-    <div className="flex h-screen bg-gray-100 font-sans text-gray-800">
-      
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-gray-400 flex flex-col transition-all duration-300">
-        <div className="p-4 flex items-center gap-3 border-b border-gray-800">
-           <img src="https://randomuser.me/api/portraits/men/32.jpg" className="w-8 h-8 rounded-full border border-gray-600" alt="Admin" />
-           <span className="text-white font-semibold">Alexander Pierce</span>
-        </div>
-        
-        <div className="px-4 py-2 bg-gray-800">
-             <span className="text-xs uppercase font-bold tracking-wider text-gray-500">Election Menu</span>
-        </div>
+	const StatCard = ({ title, value, icon: Icon, color }) => (
+		<div className="bg-white rounded-xl shadow-lg p-6 flex items-center justify-center space-x-4 hover:scale-105 transition w-full">
+			<div className={`bg-${color}-100 p-3 rounded-full`}>
+				<Icon className={`h-8 w-8 text-${color}-600`} />
+			</div>
+			<div>
+				<div className="text-2xl font-bold font-mono text-gray-900">{value}</div>
+				<div className="text-sm font-semibold text-gray-500">{title}</div>
+			</div>
+		</div>
+	);
 
-        <nav className="flex-1 overflow-y-auto py-4">
-            <NavItem 
-                icon={<LayoutDashboard size={18} />} 
-                label="Overview" 
-                active={true} 
-            />
-            
-            <NavItem icon={<FileText size={18} />} label="Elections" badge="Active" badgeColor="bg-green-500" />
-            <NavItem icon={<BarChart3 size={18} />} label="Results" />
-            <NavItem icon={<Users size={18} />} label="Voters" />
-            <NavItem icon={<Users size={18} />} label="Candidates" />
-            
-             <div className="px-4 py-2 mt-4">
-                 <span className="text-xs uppercase font-bold tracking-wider text-gray-500">System</span>
-            </div>
-            <NavItem icon={<Settings size={18} />} label="Settings" />
-            <NavItem icon={<LogOut size={18} />} label="Logout" />
-        </nav>
-      </aside>
+	return (
+		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 py-10 px-4">
+			<h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8 tracking-tight font-serif text-center">
+				Admin Dashboard
+			</h1>
+			
+			
+			<div className="flex justify-center mb-10">
+				<img
+					src="/images/votes_count.png"
+					alt="Admin Banner"
+					className="rounded-lg shadow-md w-60 h-40 object-cover"
+				/>
+			</div>
+			
+			<div className="mb-8">
+				<div className="border-b border-gray-200">
+					<nav className="-mb-px flex justify-center space-x-8">
+						{[
+							{ id: 'overview', label: 'Overview', icon: BarChart3 },
+							{ id: 'elections', label: 'Elections', icon: Vote },
+							{ id: 'results', label: 'Results', icon: Eye },
+							{ id: 'settings', label: 'Settings', icon: Settings },
+						].map((tab) => (
+							<button
+								key={tab.id}
+								onClick={() => setActiveTab(tab.id)}
+								className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm ${
+									activeTab === tab.id
+										? 'border-black text-black'
+										: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+								}`}
+							>
+								<tab.icon className="h-5 w-5" />
+								<span>{tab.label}</span>
+							</button>
+						))}
+					</nav>
+				</div>
+			</div>
 
+		
+			{activeTab === 'overview' && (
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+					<StatCard title="Total Voters" value="220" icon={Users} color="blue" />
+					<StatCard title="Votes Cast" value="180" icon={Vote} color="green" />
+					<StatCard title="Turnout Rate" value="69.8%" icon={BarChart3} color="purple" />
+					<StatCard title="Active Elections" value="2" icon={Settings} color="orange" />
+				</div>
+			)}
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
-        
-        {/* Topbar */}
-        <header className="bg-white shadow-sm px-6 py-3 flex justify-between items-center">
-             <div className="flex items-center gap-4">
-                 <h2 className="text-xl font-semibold text-gray-700">Election Overview</h2>
-                 <span className="text-xs text-blue-500 cursor-pointer">Home</span>
-                 <span className="text-xs text-gray-400">/</span>
-                 <span className="text-xs text-gray-500">Overview</span>
-             </div>
-        </header>
+		
+			{activeTab === 'elections' && (
+				<div className="space-y-6">
+					<div className="flex justify-between items-center">
+						<h2 className="text-2xl font-bold text-gray-900">Elections</h2>
+						<button className="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+							<Plus className="h-4 w-4" />
+							<span>New Election</span>
+						</button>
+					</div>
 
-        <div className="p-6 space-y-6">
-            
-            {/* Stats Cards Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <StatCard 
-                    icon={<Users className="text-white" size={24} />} 
-                    color="bg-blue-400" 
-                    label="Total Voters" 
-                    value="1.2M" 
-                />
-                 <StatCard 
-                    icon={<ThumbsUp className="text-white" size={24} />} 
-                    color="bg-red-500" 
-                    label="Votes Cast" 
-                    value="850k" 
-                />
-                 <StatCard 
-                    icon={<ShoppingCart className="text-white" size={24} />} 
-                    color="bg-green-500" 
-                    label="Turnout" 
-                    value="72%" 
-                />
-                 <StatCard 
-                    icon={<Users className="text-white" size={24} />} 
-                    color="bg-yellow-400" 
-                    label="New Registrations" 
-                    value="45k" 
-                />
-            </div>
+					<div className="grid gap-6">
+						{mockElections.map((election) => (
+							<div key={election.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+								<div className="flex justify-between items-start mb-4">
+									<div>
+										<h3 className="text-xl font-bold text-gray-900">{election.name}</h3>
+										<p className="text-gray-600">{election.startDate} to {election.endDate}</p>
+									</div>
+									<span className={`px-3 py-1 rounded-full text-sm font-medium ${
+										election.status === 'active'
+											? 'bg-green-100 text-green-800'
+											: 'bg-yellow-100 text-yellow-800'
+									}`}>
+										{election.status.charAt(0).toUpperCase() + election.status.slice(1)}
+									</span>
+								</div>
+								<div className="mb-4">
+									<p className="text-sm text-gray-600 mb-2">Constituencies:</p>
+									<div className="flex flex-wrap gap-2">
+										{election.constituencies.map((c) => (
+											<span key={c} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">{c}</span>
+										))}
+									</div>
+								</div>
+								<div className="flex space-x-3">
+									<button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">Edit</button>
+									<button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">View Details</button>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			)}
 
-            {/* Monthly Recap Report Chart */}
-            <div className="bg-white rounded-sm shadow-md">
-                 <div className="p-4 border-b border-gray-100 flex justify-between items-center">
-                     <h3 className="font-bold text-gray-700">Voting Trends</h3>
-                 </div>
-                 <div className="p-4 h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={areaData}>
-                            <defs>
-                                <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
-                                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                                </linearGradient>
-                            </defs>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Area type="monotone" dataKey="sales" stroke="#3b82f6" fillOpacity={1} fill="url(#colorSales)" />
-                            <Area type="monotone" dataKey="visits" stroke="#9ca3af" fill="transparent" strokeDasharray="5 5" />
-                        </AreaChart>
-                    </ResponsiveContainer>
-                 </div>
-            </div>
+		
+			{activeTab === 'results' && (
+				<div className="space-y-6">
+					<h2 className="text-2xl font-bold text-gray-900">Election Results</h2>
+					<div className="mb-4">
+						<label className="block text-sm font-medium text-gray-700 mb-1">Select Election</label>
+						<select
+							className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700"
+							value={selectedResultElection}
+							onChange={(e) => setSelectedResultElection(e.target.value)}
+						>
+							{mockElections.map((e) => (
+								<option key={e.id} value={e.id}>{e.name}</option>
+							))}
+						</select>
+					</div>
 
-            {/* Map & Browser Usage Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                {/* Map Section */}
-                <div className="lg:col-span-2 bg-white rounded-sm shadow-md p-0 overflow-hidden relative h-96">
-                     <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                         <h3 className="font-bold text-gray-700">Live Result Map</h3>
-                         <MapPin className="text-gray-400" size={18} />
-                     </div>
-                     <div className="h-full w-full relative">
-                        <GoogleMapComponent />
-                     </div>
-                </div>
+					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+						<h3 className="text-xl font-bold text-gray-900 mb-6">{mockElections.find(e => e.id === selectedResultElection)?.name}</h3>
+						<div className="space-y-4">
+							{resultsData[selectedResultElection].map((result, index) => (
+								<div key={index} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+									<div className="flex-1">
+										<div className="flex justify-between items-center mb-2">
+											<div>
+												<h4 className="font-bold text-gray-900">{result.candidate}</h4>
+												<p className="text-gray-600">{result.party}</p>
+											</div>
+											<div className="text-right">
+												<p className="font-bold text-gray-900">{result.votes.toLocaleString()} votes</p>
+												<p className="text-gray-600">{result.percentage}%</p>
+											</div>
+										</div>
+										<div className="w-full bg-gray-200 rounded-full h-2">
+											<div className="bg-black h-2 rounded-full transition-all duration-500" style={{ width: `${result.percentage}%` }} />
+										</div>
+									</div>
+								</div>
+							))} 
+						</div>
+					</div>
+				</div>
+			)}
 
-                {/* Right Column: Info Cards & Browser Usage */}
-                <div className="space-y-4">
-                     <InfoBox color="bg-yellow-400" icon={<ShoppingCart size={24} className="text-white"/>} label="Polling Stations" value="5,200" />
-                     <InfoBox color="bg-green-500" icon={<MessageSquare size={24} className="text-white"/>} label="Issues Reported" value="92" />
-                     <InfoBox color="bg-red-500" icon={<FileText size={24} className="text-white"/>} label="Ballots Counted" value="114k" />
-                     <InfoBox color="bg-blue-400" icon={<Mail size={24} className="text-white"/>} label="Messages" value="163" />
-                    
-                    {/* Browser Usage */}
-                     <div className="bg-white rounded-sm shadow-md p-4">
-                         <h3 className="font-bold text-gray-700 mb-4 border-b border-gray-100 pb-2">Device Usage</h3>
-                         <div className="h-48 flex items-center justify-center">
-                             <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie data={pieData} innerRadius={40} outerRadius={60} paddingAngle={2} dataKey="value">
-                                        {pieData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                </PieChart>
-                             </ResponsiveContainer>
-                         </div>
-                         <div className="text-xs space-y-1 mt-2">
-                             {pieData.map((entry, index) => (
-                                 <div key={index} className="flex items-center gap-2">
-                                     <div className="w-2 h-2 rounded-full" style={{backgroundColor: COLORS[index]}}></div>
-                                     <span style={{color: COLORS[index]}}>{entry.name}</span>
-                                     <span className="ml-auto font-bold">{entry.value}</span>
-                                 </div>
-                             ))}
-                         </div>
-                     </div>
-                </div>
+			
+			{activeTab === 'settings' && (
+				<div className="space-y-6">
+					<h2 className="text-2xl font-bold text-gray-900">Settings</h2>
+				</div>
+			)}
+		</div>
+	);
+};
 
-            </div>
-
-             {/* Latest Members Row (No Chat) */}
-             <div className="bg-white rounded-sm shadow-md p-4">
-                   <div className="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
-                        <h3 className="font-bold text-gray-700">Recent Voter Registrations</h3>
-                        <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded">8 New Today</span>
-                   </div>
-                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 text-center">
-                        {[1,2,3,4,5,6,7,8].map((i) => (
-                            <div key={i} className="flex flex-col items-center group cursor-pointer">
-                                <img src={`https://randomuser.me/api/portraits/thumb/men/${i+10}.jpg`} className="w-12 h-12 rounded-full border border-gray-200 p-0.5 mb-2 group-hover:border-blue-500 transition-colors" />
-                                <span className="text-xs font-bold text-gray-700 group-hover:text-blue-600">Voter {i}</span>
-                                <span className="text-[10px] text-gray-400">Verified</span>
-                            </div>
-                        ))}
-                   </div>
-              </div>
-
-        </div>
-      </main>
-    </div>
-  );
-}
-
-// Sub-components
-const NavItem = ({ icon, label, badge, badgeColor, active, hasSubmenu, isOpen, children }) => (
-    <div className={`px-4 py-2 hover:bg-gray-800 cursor-pointer group ${active ? 'bg-gray-800 border-l-4 border-blue-500' : 'border-l-4 border-transparent'}`}>
-         <div className="flex items-center gap-3 text-sm">
-             <span className={`${active ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>{icon}</span>
-             <span className={`${active ? 'text-white font-bold' : 'text-gray-300 group-hover:text-white'}`}>{label}</span>
-             {badge && <span className={`ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded text-white ${badgeColor}`}>{badge}</span>}
-             {hasSubmenu && <span className={`ml-auto text-xs text-gray-500 transform ${isOpen ? 'rotate-90' : ''}`}>›</span>}
-         </div>
-         {isOpen && children && <div className="mt-2 ml-2 space-y-1">{children}</div>}
-    </div>
-);
-
-const SubItem = ({ label, active }) => (
-    <div className={`pl-8 py-1 text-sm ${active ? 'text-white' : 'text-gray-500 hover:text-gray-300'}`}>
-        ○ {label}
-    </div>
-)
-
-const StatCard = ({ icon, color, label, value }) => (
-    <div className="bg-white rounded-sm shadow-md flex items-center p-4">
-        <div className={`${color} p-4 rounded-sm shadow-sm -mt-8 mr-4`}>
-            {icon}
-        </div>
-        <div>
-            <span className="text-xs text-gray-500 uppercase font-bold">{label}</span>
-            <h3 className="text-lg font-bold text-gray-800">{value}</h3>
-        </div>
-    </div>
-)
-
-const InfoBox = ({ color, icon, label, value }) => (
-    <div className="bg-white rounded-sm shadow-md flex items-center p-3">
-        <div className={`${color} p-3 rounded-sm mr-4`}>
-            {icon}
-        </div>
-        <div>
-            <span className="block text-xs text-gray-500 uppercase font-bold">{label}</span>
-            <span className="block text-lg font-bold text-gray-800">{value}</span>
-        </div>
-    </div>
-)
+export default AdminDashboard;
