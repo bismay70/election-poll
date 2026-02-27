@@ -6,11 +6,6 @@ const VoterSidebar = () => {
   const navigate = useNavigate();
   const name = localStorage.getItem("name");
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
-
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
       isActive

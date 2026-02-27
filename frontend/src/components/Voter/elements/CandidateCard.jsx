@@ -22,15 +22,11 @@ const CandidateCard = ({
         }
       }}
     >
-      {/* Top Section: Avatar + Info */}
       <div className="flex gap-4 items-start">
-
-        {/* Placeholder Avatar */}
         <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center border border-gray-200">
           <User size={22} className="text-gray-500" />
         </div>
 
-        {/* Candidate Info */}
         <div className="flex-1">
           <h3 className="text-base font-semibold text-gray-800">
             {candidate.candidateName}
