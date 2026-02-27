@@ -39,6 +39,7 @@ const Login = () => {
         formData
       );
 
+      localStorage.setItem("name", response.data.name);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role);
 

@@ -16,11 +16,14 @@ const candidateSchema = mongoose.Schema({
     constituency: {
         type: String,
     },
+    symbol: {
+        type: String,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true
-    }
+        // required: true
+    },
 })
 
 module.exports = mongoose.model('Candidate', candidateSchema)

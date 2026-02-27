@@ -43,4 +43,31 @@ const castVote = async (req,res) => {
     }
 }
 
-module.exports = {viewCandidates, castVote};
+const getStats = async (req, res) => {
+    try {
+        const totalVoters = await User.countDocuments({ role: "voter" });
+
+        const candidates = await Candidate.find();
+
+        const totalVotes = candidates.reduce(
+        (sum, candidate) => sum + candidate.totalVotes,
+        0
+        );
+
+        const turnout =
+        totalVoters === 0 ? 0 : ((totalVotes / totalVoters) * 100).toFixed(2);
+
+        const currentUser = await User.findById(req.user._id);
+
+        res.json({
+        totalVoters,
+        totalVotes,
+        turnout,
+        hasVoted: currentUser.hasVoted,
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching stats" });
+    }
+};
+
+module.exports = {viewCandidates, castVote, getStats};

@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { Menu, X, Vote } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
+  const isDashboard =
+    location.pathname.startsWith("/voter") ||
+    location.pathname.startsWith("/candidate") ||
+    location.pathname.startsWith("/admin");
+
+  // ✅ Hide header completely on dashboard routes
+  if (isDashboard) return null;
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -100,29 +108,6 @@ export default function Header() {
                   </Link>
                   <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
                     Register
-                  </Link>
-                </>
-              )}
-
-              {token && role === "voter" && (
-                <Link to="/voter" onClick={() => setIsMobileMenuOpen(false)}>
-                  Dashboard
-                </Link>
-              )}
-
-              {token && role === "candidate" && (
-                <Link to="/candidate" onClick={() => setIsMobileMenuOpen(false)}>
-                  My Votes
-                </Link>
-              )}
-
-              {token && role === "admin" && (
-                <>
-                  <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)}>
-                    Admin Panel
-                  </Link>
-                  <Link to="/new-election" onClick={() => setIsMobileMenuOpen(false)}>
-                    New Election
                   </Link>
                 </>
               )}
