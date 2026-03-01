@@ -10,7 +10,7 @@ const CandidateCard = ({
 }) => {
   return (
     <div
-      className={`bg-white rounded-xl shadow-sm border p-5 transition cursor-pointer
+      className={`bg-white rounded-xl shadow-sm p-6 transform transition duration-300 hover:-translate-y-1 hover:shadow-lg
         ${
           isSelected
             ? "border-indigo-600 ring-2 ring-indigo-200"
@@ -44,7 +44,6 @@ const CandidateCard = ({
         </div>
       </div>
 
-      {/* Voting Button */}
       {showVoteButton && !hasVoted && (
         <button
           className={`mt-4 w-full py-2 rounded-lg text-sm font-medium transition

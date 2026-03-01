@@ -16,6 +16,8 @@ import VoterLayout from "./components/Voter/VoterLayout";
 import Settings from "./components/Settings";
 import CastVote from "./components/Voter/elements/CastVote";
 import MyStatus from "./components/Voter/elements/MyStatus.jsx";
+import {Toaster} from "react-hot-toast";
+import { CheckCircle, XCircle } from "lucide-react";
 
 function AppLayout() {
   const location = useLocation();
@@ -27,6 +29,29 @@ function AppLayout() {
 
   return (
     <>
+      <Toaster position="top-center">
+    {(t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } bg-white shadow-lg rounded-xl px-5 py-4 flex items-start gap-3`}
+      >
+        <div className="mt-[0px]">
+          {t.type === "success" && (
+            <CheckCircle className="text-green-600 w-5 h-5" />
+          )}
+          {t.type === "error" && (
+            <XCircle className="text-red-100 w-5 h-5" />
+          )}
+        </div>
+
+        <span className="text-sm font-medium leading-snug">
+          {t.message}
+        </span>
+      </div>
+      )}
+      </Toaster>
+
       {!isDashboard && <Header />}
 
       <Routes>
@@ -35,7 +60,6 @@ function AppLayout() {
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<MyForm />} />
 
-        {/* VOTER ROUTES */}
         <Route
           path="/voter"
           element={
