@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getVoterStats } from "./voterApi";
+import { getVoterStats } from "../voterApi";
 
 const MyStatus = () => {
   const [stats, setStats] = useState(null);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CandidateCard from "./CandidateCard";
-import VoteModal from "./VoteModal";
-import { getVoterCandidates, getVoterStats, submitVote } from "./voterApi";
+import CandidateCard from "../components/CandidateCard";
+import VoteModal from "../components/VoteModal";
+import { getVoterCandidates, getVoterStats, submitVote } from "../voterApi";
 
 const CastVote = () => {
   const [candidates, setCandidates] = useState([]);

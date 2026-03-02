@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import VoterSidebar from "./VoterSidebar";
-import VoterTopbar from "./VoterTopbar";
+import VoterSidebar from "../features/voter/components/VoterSidebar";
+import VoterTopbar from "../features/voter/components/VoterTopbar";
 
 const VoterLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
