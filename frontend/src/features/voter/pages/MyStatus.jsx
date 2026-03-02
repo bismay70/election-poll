@@ -47,13 +47,10 @@ const MyStatus = () => {
 
   return (
     <div className="max-w-5xl mx-auto">
-
-      {/* Page Title */}
       <h1 className="text-2xl font-bold text-gray-800 mb-8">
         My Voting Status
       </h1>
 
-      {/* If Not Voted */}
       {!stats.hasVoted ? (
         <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
@@ -79,11 +76,22 @@ const MyStatus = () => {
             </p>
 
             {stats.votedAt && (
-              <p className="text-sm text-green-600 mt-2">
-                Voted On:{" "}
-                {new Date(stats.votedAt).toLocaleString()}
-              </p>
-            )}
+            <p className="text-sm mt-2 text-green-700">
+              Voted on:{" "}
+              <span className="font-medium">
+                {new Date(stats.votedAt).toLocaleDateString("en-IN", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}{" "}
+                at{" "}
+                {new Date(stats.votedAt).toLocaleTimeString("en-IN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            </p>
+          )}
           </div>
         </>
       )}

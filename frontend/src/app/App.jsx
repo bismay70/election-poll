@@ -3,7 +3,9 @@ import Header from "../shared/components/Header";
 import Home from "../features/public/pages/Home";
 import Footer from "../shared/components/Footer";
 import VoterDashboard from "../features/voter/pages/VoterDashboard";
-import AdminDashboard from "../features/admin/pages/AdminDashboard";
+import Overview from "../features/admin/pages/Overview";
+import CandidateManagement from "../features/admin/pages/CandidateManagement";
+import Results from "../features/admin/pages/Results";
 import Dashboard from "../features/public/pages/Dashboard";
 import NewElectionForm from "../features/public/pages/NewElectionForm";
 import MyForm from "../features/public/pages/ContactUs";
@@ -13,7 +15,7 @@ import Register from "../features/auth/pages/Register";
 import ProtectedRoute from "../features/auth/ProtectedRoute";
 import RoleBasedRoute from "../features/auth/RoleBasedRoute";
 import VoterLayout from "../layouts/VoterLayout";
-// import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../layouts/AdminLayout";
 import Settings from "../features/voter/pages/Settings";
 import CastVote from "../features/voter/pages/CastVote";
 import MyStatus from "../features/voter/pages/MyStatus";
@@ -77,7 +79,7 @@ function AppLayout() {
           <Route path="status" element={<MyStatus />} />
         </Route>
 
-        {/* <Route
+        <Route
           path="/admin"
           element={
             <ProtectedRoute>
@@ -91,7 +93,7 @@ function AppLayout() {
           <Route path="candidates" element={<CandidateManagement />} />
           <Route path="results" element={<Results />} />
           <Route path="settings" element={<Settings />} />
-        </Route> */}
+        </Route>
 
         <Route
           path="/new-election"

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CandidateCard from "../components/CandidateCard";
 import VoteModal from "../components/VoteModal";
 import { getVoterCandidates, getVoterStats, submitVote } from "../voterApi";
+import toast from "react-hot-toast";
 
 const CastVote = () => {
   const [candidates, setCandidates] = useState([]);
@@ -24,7 +25,7 @@ const CastVote = () => {
       setCandidates(candidatesRes.data);
       setStats(statsRes.data);
     } catch (err) {
-      console.error("Error loading candidates:", err);
+      toast.error("Failed to load candidates.");
     } finally {
       setLoading(false);
     }
@@ -35,11 +36,18 @@ const CastVote = () => {
 
     try {
       setSubmitting(true);
+
       await submitVote(selectedCandidate._id, config);
+
+      toast.success("Vote submitted successfully!");
+
       setSelectedCandidate(null);
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || "Vote submission failed");
+      toast.error(
+        err.response?.data?.message || "Vote submission failed"
+      );
+      fetchData();
     } finally {
       setSubmitting(false);
     }

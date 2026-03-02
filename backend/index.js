@@ -1,11 +1,36 @@
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 const corsConfig = require('./corsConfig');
 const database = require('./database');
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+
+const allowedOrigin =
+  process.env.NODE_ENV === "production" ? process.env.CLIENT_URL : "http://localhost:5173";
+
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigin,
+    methods: ["GET", "POST"],
+    credentials: true,
+  }
+});
+
+app.set("io", io);
+
+io.on("connection", (socket) => {
+  console.log("Socket connected:", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("Socket disconnected:", socket.id);
+  });
+});
 
 app.use(cors(corsConfig));
 app.use(express.json());
@@ -24,14 +49,18 @@ app.use('/candidate', candidateRoutes);
 app.use('/voter', voterRoutes);
 app.use('/api/contact', contactRoutes);
 
-app.get('/', (req,res) => {
-    res.status(200).json({message: "Voting System API Created Successfully!"});
-})
-app.use((req,res) => {
-    res.status(404).json({message: "Route not found"});
-})
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: "Voting System API Created Successfully!"
+  });
+});
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, ()=> {
-    console.log(`server started at http://localhost:${PORT}`);
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });

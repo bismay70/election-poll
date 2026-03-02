@@ -16,11 +16,24 @@ const userSchema = mongoose.Schema({
         type: String, 
         required: true
     },
+    phone: {
+    type: String,
+        required: false,
+        unique: true
+    },
+    isPhoneVerified: {
+        type: Boolean,
+        default: false
+    },
+    candidateProfile: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate"
+    },
     role: {
         type: String, 
-        enum: ['voter', 'admin'], 
+        enum: ['voter', 'admin', 'candidate'], 
         default: 'voter'},
-        hasVoted: {type: Boolean, default: 'false'}
+        hasVoted: {type: Boolean, default: false}
 },
 {
     timestamps: true,

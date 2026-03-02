@@ -32,7 +32,7 @@ const VoterTopbar = ({ toggleSidebar }) => {
           <img
             src="/images/user.jpg"
             alt="User"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover cursor-pointer"
           />
         </div>
         <span className="text-xs sm:text-sm md:text-base font-medium truncate max-w-[90px] sm:max-w-none max-[338px]:hidden">

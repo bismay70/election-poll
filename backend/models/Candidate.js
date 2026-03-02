@@ -7,7 +7,6 @@ const candidateSchema = mongoose.Schema({
     },
     totalVotes: 
     {   type: Number,
-        required: true, 
         default: 0
     },
     party: {
@@ -23,7 +22,8 @@ const candidateSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         // required: true
-    },
-})
+    }
+    }, {timestamps: true} 
+);
 
 module.exports = mongoose.model('Candidate', candidateSchema)
