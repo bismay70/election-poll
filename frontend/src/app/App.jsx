@@ -12,7 +12,7 @@ import MyForm from "../features/public/pages/ContactUs";
 import ScrollToTop from "./scrollToTop";
 import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
-import ProtectedRoute from "../features/auth/ProtectedRoute";
+import ProtectedRoute from "../features/auth/protectedRoute.jsx";
 import RoleBasedRoute from "../features/auth/RoleBasedRoute";
 import VoterLayout from "../layouts/VoterLayout";
 import AdminLayout from "../layouts/AdminLayout";
