@@ -49,8 +49,6 @@ const removeCandidate = async (req, res) => {
     if (!candidate) {
       return res.status(404).json({ message: "Candidate not found" });
     }
-
-    // Delete linked user using reference
     if (candidate.user) {
       await User.findByIdAndDelete(candidate.user);
     }

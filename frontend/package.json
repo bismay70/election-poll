@@ -17,6 +17,7 @@
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.6.0",
     "react-is": "^19.2.4",

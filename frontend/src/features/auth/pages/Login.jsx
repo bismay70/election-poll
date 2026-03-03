@@ -62,50 +62,51 @@ const showCustomToast = (message, type = "loading", id = undefined) => {
 };
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState("voter");
+      const navigate = useNavigate();
+      const [selectedRole, setSelectedRole] = useState("voter");
+      
+      const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+      });
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+      const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] = useState(false);
+      const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+      };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+      const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+        if (!formData.email || !formData.password) {
+          showCustomToast("All fields are mandatory!", "error");
+          return;
+        }
 
-    if (!formData.email || !formData.password) {
-      showCustomToast("All fields are mandatory!", "error");
-      return;
-    }
+        setLoading(true);
 
-    setLoading(true);
+        const toastId = showCustomToast("Authenticating...", "loading");
 
-    const toastId = showCustomToast("Authenticating...", "loading");
+        try {
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_URL}/auth/login`,
+            formData
+          );
 
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        formData
-      );
+          localStorage.setItem("name", response.data.name);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("role", response.data.role);
+          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("token", response.data.token);
 
-      localStorage.setItem("name", response.data.name);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
+          showCustomToast(
+      response.data?.message || "Login successful!",
+      "success",
+      toastId
+    );
 
-      showCustomToast(
-  response.data?.message || "Login successful!",
-  "success",
-  toastId
-);
-
-navigate(`/${response.data.role}`, { replace: true });
-
+    navigate(`/${response.data.role}`, { replace: true });
     } catch (err) {
       showCustomToast(
         err.response?.data?.message || "Invalid credentials",

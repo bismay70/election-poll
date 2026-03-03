@@ -5,6 +5,8 @@ import VoteModal from "../components/VoteModal";
 import MiniAnalytics from "../components/MiniAnalytics";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import { Users, Vote, TrendingUp } from "lucide-react";
+import CountUp from "react-countup";
 
 import {getVoterCandidates, getVoterStats, submitVote,} from "../voterApi";
 
@@ -106,18 +108,47 @@ const VoterDashboard = () => {
       </div>
     )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-        <OverviewCard
-          label="Total Registered Voters"
-          value={stats.totalVoters || 0}
-        />
-        <OverviewCard
-          label="Votes Cast"
-          value={stats.totalVotes || 0}
-        />
-        <OverviewCard
-          label="Voter Turnout"
-          value={`${stats.turnout || 0}%`}
-        />
+        <div className="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+          <div className="bg-blue-100 p-3 rounded-xl">
+            <Users className="text-blue-600" size={24} />
+          </div>
+          <div>
+            <p className="text-gray-500 text-sm">Total Registered Voters</p>
+            <h2 className="text-2xl font-bold">
+              <CountUp end={stats.totalVoters || 0} duration={1.2} />
+            </h2>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+          <div className="bg-yellow-100 p-3 rounded-xl">
+            <Vote className="text-yellow-600" size={24} />
+          </div>
+          <div>
+            <p className="text-gray-500 text-sm">Votes Cast</p>
+            <h2 className="text-2xl font-bold">
+              <CountUp end={stats.totalVotes || 0} duration={1.2} />
+            </h2>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+          <div className="bg-green-100 p-3 rounded-xl">
+            <TrendingUp className="text-green-600" size={24} />
+          </div>
+          <div>
+            <p className="text-gray-500 text-sm">Voter Turnout</p>
+            <h2 className="text-2xl font-bold">
+              <CountUp
+                end={stats.turnout || 0}
+                decimals={1}
+                duration={1.2}
+              />
+              %
+            </h2>
+          </div>
+        </div>
+
       </div>
 
       <MiniAnalytics

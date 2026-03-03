@@ -16,6 +16,6 @@ export const addCandidate = async (data) => {
 };
 
 export const deleteCandidate = async (id) => {
-  return await api.delete(`/admin/candidates/${id}`);
+  const res = await api.delete(`/admin/candidates/${id}`);
   return res.data;
 };
