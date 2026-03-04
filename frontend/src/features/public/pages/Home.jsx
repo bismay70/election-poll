@@ -3,79 +3,153 @@ import { useNavigate } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ShieldCheck, BarChart3, Scale } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
 export default function Home() {
   const navigate = useNavigate();
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 text-white overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/images/bg.jpeg')",
-        }}
-      />
-      <div className="absolute inset-0 bg-black/60" />
+    <section className="relative min-h-screen flex items-center px-6 text-white overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900" />
+    <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle,white_1px,transparent_1px)] bg-[size:24px_24px]" />
+    <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
       <motion.div
-        className="relative z-10 flex flex-col items-center gap-6"
+        className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 max-w-xl mb--8"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <motion.img
-          src="/images/Screenshot 2025-08-16 131130.png"
-          alt="Election Icon"
-          className="w-20 h-20 rounded-lg shadow-2xl"
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
+
+      <motion.img
+        src="/images/Screenshot 2025-08-16 131130.png"
+        alt="Election Icon"
+        className="w-16 h-16 rounded-lg shadow-2xl"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="homepage">
         <motion.h1
-          className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-orange-400 via-gray-200 to-green-400 bg-clip-text text-transparent"
+          className="homepage inline-block text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] bg-gradient-to-r from-orange-400 via-gray-200 to-green-400 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           ONLINE ELECTION PLATFORM
         </motion.h1>
-    <motion.p
-      className="mt-6 max-w-3xl text-lg sm:text-xl text-gray-200"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 0.8 }}
-    >
-      <span className="font-bold text-white">ElectPoll</span> enables secure,
-      transparent and efficient elections anytime, anywhere.
-      Experience real-time results, voter authentication, and a simple
-      interface designed to make digital elections reliable and trustworthy.
-    </motion.p>
+      </div>
+
+      <motion.p
+        className="mt-3 max-w-3xl text-lg sm:text-xl text-gray-200"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+      >
+        <span className="font-bold text-white">ElectPoll</span> enables secure,
+        transparent and efficient elections anytime, anywhere.
+        Experience real-time results, voter authentication, and a simple
+        interface designed to make digital elections reliable and trustworthy.
+      </motion.p>
+
+      <motion.div
+        className="mt-3"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.7, duration: 0.6 }}
+      >
+        <motion.button
+          onClick={() => {
+            const role = localStorage.getItem("role");
+            if (role === "voter") {
+              navigate("/voter");
+            } else {
+              navigate("/register");
+            }
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-gradient-to-r from-indigo-600 to-blue-600 
+          hover:from-indigo-700 hover:to-blue-700 
+          text-white px-10 py-4 rounded-xl 
+          font-semibold text-lg 
+          shadow-lg hover:shadow-2xl 
+          transition-all duration-300"
+        >
+          Vote Now
+        </motion.button>
+      </motion.div>
+    </motion.div>
 
     <motion.div
-      className="mt-10"
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.7, duration: 0.6 }}
+      className="hidden lg:block relative"
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
     >
-      <motion.button
-        onClick={() => navigate("/register")}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="bg-gradient-to-r from-indigo-600 to-blue-600 
-        hover:from-indigo-700 hover:to-blue-700 
-        text-white px-10 py-4 rounded-xl 
-        font-semibold text-lg 
-        shadow-lg hover:shadow-2xl 
-        transition-all duration-300"
-      >
-        Vote Now
-      </motion.button>
-    </motion.div>
 
-    </motion.div>
-  </section>
+      <Swiper
+        modules={[Autoplay]}
+        autoplay={{ delay: 3000 }}
+        loop={true}
+        className="rounded-2xl overflow-visible shadow-2xl border border-white/10 w-full max-w-[600px] ml-auto"
+      >
+
+       <SwiperSlide>
+        <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
+          <img src="/images/bg.jpeg" className="w-full h-full object-cover" />
+        </div>
+      </SwiperSlide>
+
+      <SwiperSlide>
+        <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
+          <img src="/images/voters.png" className="w-full h-full object-cover" />
+        </div>
+      </SwiperSlide>
+
+      <SwiperSlide>
+        <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
+          <img src="/images/digital.png" className="w-full h-full object-cover" />
+        </div>
+      </SwiperSlide>
+      <SwiperSlide>
+        <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
+          <img src="/images/votes_count.png" className="w-full h-full object-cover" />
+        </div>
+      </SwiperSlide>
+      <SwiperSlide>
+        <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
+          <img src="/images/india.png" className="w-full h-full object-cover" />
+        </div>
+      </SwiperSlide>
+      <SwiperSlide>
+        <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
+          <img src="/images/voting.png" className="w-full h-full object-cover" />
+        </div>
+      </SwiperSlide>
+      </Swiper>
+
+      <button
+        className="absolute z-20 top-1/2 left-2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full px-3 py-2"
+        onClick={() => document.querySelector(".swiper").swiper.slidePrev()}
+      >
+        ‹
+      </button>
+
+      <button
+        className="absolute z-20 top-1/2 right-2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full px-3 py-2"
+        onClick={() => document.querySelector(".swiper").swiper.slideNext()}
+      >
+    ›
+  </button>
+</motion.div>
+</div>
+</section>
 
   <section className="relative z-10 py-24 bg-transparent">
-  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 -z-10" />
+  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50 -z-10" />
   <div className="max-w-6xl mx-auto px-6">
 
     <motion.h2

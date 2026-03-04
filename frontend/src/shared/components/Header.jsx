@@ -41,12 +41,12 @@ export default function Header() {
         <nav className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <Vote className="h-8 w-8 text-indigo-600" />
-            <span className="font-extrabold text-2xl text-gray-900">
+            <span className="tracking-normal font-black text-[1.5rem] sm:text-[1.75rem] text-gray-900">
               ElectPoll
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-4 text-sm font-semibold">
+          <div className="navlinks hidden md:flex items-center gap-4 text-[16px] font-bold">
 
             <Link to="/" className={navLinkStyle}>
               Home

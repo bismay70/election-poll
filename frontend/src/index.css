@@ -4,7 +4,28 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Urbanist", sans-serif;
+  font-weight: 500;
+}
+
+h1, h3, h2 {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 750;
+}
+
+.homepage h1 {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 800;
+}
+
+.contact {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 800;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
 }
 
 @keyframes fadeIn {
@@ -96,4 +117,21 @@ html, body, #root {
 
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out;
+}
+
+.inter-tight-p{
+  font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 420;
+  font-style: normal;
+}
+
+@keyframes dots-flicker {
+  0% { opacity: 0.17; }
+  50% { opacity: 0.27; }
+  100% { opacity: 0.15; }
+}
+
+.animate-dots {
+  animation: dots-flicker 6s ease-in-out infinite;
 }

@@ -42,7 +42,6 @@ const showCustomToast = (message, type = "loading", id = undefined) => {
           </p>
         </div>
 
-        {/* Progress Bar */}
         <div className="absolute bottom-0 left-0 h-1 w-full bg-gray-200 rounded-b-xl overflow-hidden">
           <div
             className={`h-full toast-progress
@@ -131,9 +130,9 @@ const MyForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 py-10">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 px-4 py-10">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full">
-        <h2 className="text-3xl font-extrabold mb-4 text-gray-900 text-center">
+        <h2 className="contact text-3xl font-extrabold mb-4 text-gray-900 text-center">
           Contact Us
         </h2>
 

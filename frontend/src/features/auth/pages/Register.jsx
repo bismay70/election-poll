@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
 
 const showCustomToast = (message, type = "loading", id = undefined) => {
   return toast.custom(
@@ -64,6 +65,8 @@ const showCustomToast = (message, type = "loading", id = undefined) => {
 const Register = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("voter");
+  const [showPassword, setShowPassword] = useState(true);
+  const [showPass, setShowPass] = useState(true);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -178,23 +181,47 @@ const Register = () => {
             onChange={handleChange}
           />
 
+          <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Password"
-            className="w-full border border-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30 transition duration-200"
+            className="w-full border border-gray-400 rounded-lg px-4 py-3 pr-12
+            focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30
+            transition duration-200"
             value={formData.password}
             onChange={handleChange}
           />
 
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-500 z-10"
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
+
+          <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="confirmPassword"
             placeholder="Confirm Password"
-            className="w-full border border-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30 transition duration-200"
+            className="w-full border border-gray-400 rounded-lg px-4 py-3 pr-12
+            focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30
+            transition duration-200"
             value={formData.confirmPassword}
             onChange={handleChange}
           />
+
+          <button
+            type="button"
+            onClick={() => setShowPass(!showPass)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-500 z-10"
+          >
+            {showPass ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
           <button
             type="submit"

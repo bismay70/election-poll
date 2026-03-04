@@ -40,7 +40,7 @@ const AdminTopbar = ({ toggleSidebar }) => {
           />
         </div>
 
-        <span className="text-xs sm:text-sm md:text-base font-medium truncate max-w-[90px] sm:max-w-none max-[338px]:hidden">
+        <span className="text-xs sm:text-sm md:text-base font-normal truncate max-w-[90px] sm:max-w-none max-[338px]:hidden">
           {name}
         </span>
 
