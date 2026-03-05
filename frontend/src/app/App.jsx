@@ -23,6 +23,7 @@ import AdminLayout from "../layouts/AdminLayout.jsx";
 import Settings from "../features/auth/pages/Settings.jsx";
 import CastVote from "../features/voter/pages/CastVote.jsx";
 import MyStatus from "../features/voter/pages/MyStatus.jsx";
+import { SkeletonTheme } from "react-loading-skeleton";
 import { Toaster } from "react-hot-toast";
 import { CheckCircle, XCircle } from "lucide-react";
 
@@ -143,9 +144,11 @@ function AppLayout() {
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <AppLayout />
-    </Router>
+    <SkeletonTheme baseColor="#e5e7eb" highlightColor="#f8fafc" duration={1.2}>
+      <Router>
+        <ScrollToTop />
+        <AppLayout />
+      </Router>
+    </SkeletonTheme>
   );
 }

@@ -1,3 +1,4 @@
+import CandidateCardSkeleton from "../../../shared/components/skeletons/CandidateCardSkeleton";
 import React, { useEffect, useState } from "react";
 import CandidateCard from "../components/CandidateCard";
 import VoteModal from "../components/VoteModal";
@@ -58,12 +59,18 @@ const CastVote = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="text-center text-gray-500 py-10">
-        Loading candidates...
+  return (
+    <>
+      <h1 className="text-2xl font-bold mb-8">Cast Your Vote</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <CandidateCardSkeleton key={i} />
+        ))}
       </div>
-    );
-  }
+    </>
+  );
+}
 
   return (
     <>

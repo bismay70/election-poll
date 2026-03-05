@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { getCandidateProfile } from "../candidateApi";
+import Skeleton from "react-loading-skeleton";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -22,9 +23,40 @@ const Profile = () => {
   }, []);
 
   if (loading) {
-    return <div className="mt-20 text-center text-gray-500">Loading profile...</div>;
-  }
+  return (
+    <div className="space-y-8">
+      <div>
+        <Skeleton height={28} width={160} />
+        <div className="mt-2">
+          <Skeleton height={16} width={260} />
+        </div>
+      </div>
 
+      <div className="bg-white shadow rounded-2xl p-8 max-w-2xl">
+        <div className="flex items-center gap-6 mb-8">
+          <Skeleton circle width={96} height={96} />
+          <div>
+            <Skeleton height={20} width={180} />
+            <div className="mt-2">
+              <Skeleton height={16} width={120} />
+            </div>
+          </div>
+        </div>
+        <div className="space-y-6">
+          {[...Array(5)].map((_, i) => (
+            <div key={i}>
+              <Skeleton height={14} width={120} />
+              <div className="mt-2">
+                <Skeleton height={36} borderRadius={8} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
+}
   if (!profile) {
     return <div className="mt-20 text-center text-red-500">Profile not found</div>;
   }

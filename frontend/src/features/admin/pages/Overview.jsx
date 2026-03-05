@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Users, Vote, TrendingUp, Layers } from "lucide-react";
 import CountUp from "react-countup";
 import { getAdminStats } from "../adminApi";
+import Skeleton from "react-loading-skeleton";
 
 const Overview = () => {
   const [stats, setStats] = useState(null);
@@ -23,18 +24,42 @@ const Overview = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="space-y-6 animate-pulse">
-        <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
+  return (
+    <div className="space-y-8">
+      <div>
+        <Skeleton height={32} width={280} />
+        <div className="mt-2">
+          <Skeleton height={18} width={350} />
         </div>
       </div>
-    );
-  }
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={i}
+            className="bg-white rounded-2xl shadow-sm p-6"
+          >
+            <div className="flex items-center gap-4">
+              <Skeleton circle width={48} height={48} />
+              <div className="flex-1">
+                <Skeleton height={14} width="60%" />
+                <div className="mt-2">
+                  <Skeleton height={24} width="40%" />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="bg-white rounded-2xl shadow-sm p-8">
+        <Skeleton height={20} width={200} />
+        <div className="mt-6">
+          <Skeleton height={120} />
+        </div>
+      </div>
+
+    </div>
+  );
+}
 
   const turnoutRate = stats?.totalVoters > 0 ? (stats.votesCast / stats.totalVoters) * 100 : 0;
 

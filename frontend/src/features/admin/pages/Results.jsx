@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { getLiveVotes } from "../adminApi";
 import { io } from "socket.io-client";
-const socket = io(import.meta.env.VITE_API_URL, {
-  withCredentials: true
-});
+import Skeleton from "react-loading-skeleton";
 import {
   BarChart,
   Bar,
@@ -18,25 +16,59 @@ import {
 
 const Results = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchVotes = async () => {
-    const res = await getLiveVotes();
-    setData(res.candidates);
+    try {
+      const res = await getLiveVotes();
+      setData(res.candidates);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchVotes();
+  const socket = io(import.meta.env.VITE_API_URL, {
+    withCredentials: true
+  });
 
-    socket.on("voteUpdated", () => {
-      fetchVotes(); 
-    });
+  fetchVotes();
 
-    return () => {
-      socket.off("voteUpdated");
-    };
-  }, []);
+  socket.on("voteUpdated", fetchVotes);
+
+  return () => socket.disconnect();
+}, []);
 
   const COLORS = ["#6366F1", "#22C55E", "#F59E0B", "#EF4444"];
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <Skeleton height={28} width={220} />
+          <div className="mt-2">
+            <Skeleton height={16} width={340} />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <div className="bg-white shadow rounded-xl p-6">
+            <Skeleton height={20} width={180} />
+            <div className="mt-6">
+              <Skeleton height={260} borderRadius={12} />
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-xl p-6">
+            <Skeleton height={20} width={140} />
+            <div className="mt-6">
+              <Skeleton height={260} borderRadius={12} />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -52,9 +84,12 @@ const Results = () => {
           Live
         </span>
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
         <div className="bg-white shadow rounded-xl p-6">
           <h3 className="font-semibold mb-4">Votes by Candidate</h3>
+
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data}>
               <XAxis dataKey="name" />
@@ -67,6 +102,7 @@ const Results = () => {
 
         <div className="bg-white shadow rounded-xl p-6">
           <h3 className="font-semibold mb-4">Vote Share</h3>
+
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -83,13 +119,15 @@ const Results = () => {
                   />
                 ))}
               </Pie>
+
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
         </div>
+
       </div>
     </div>
   );
-}
+};
 
 export default Results;

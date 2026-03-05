@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Users, TrendingUp, Award } from "lucide-react";
 import { getVoteCount } from "../candidateApi";
 import CountUp from "react-countup";
+import Skeleton from "react-loading-skeleton";
 
 const CandidateDashboard = () => {
   const [votes, setVotes] = useState(0);
@@ -20,8 +21,6 @@ const CandidateDashboard = () => {
         setRank(data.candidate.rank || null);
         setTotalCandidates(data.platformStats.totalCandidates || 0);
         setTotalVoters(data.platformStats.totalVoters || 0);
-        setVotes(data.candidate.totalVotes || 0);
-        setRank(data.candidate.rank || null);
       } catch (err) {
         console.error("Failed to fetch votes");
       } finally {
@@ -33,17 +32,37 @@ const CandidateDashboard = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="space-y-6 animate-pulse">
-        <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
-          <div className="h-24 bg-gray-200 rounded-2xl"></div>
+  return (
+    <div className="space-y-8">
+      <div>
+        <Skeleton height={32} width={260} />
+        <div className="mt-2">
+          <Skeleton height={18} width={340} />
         </div>
       </div>
-    );
-  }
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4">
+            <Skeleton circle width={48} height={48} />
+            <div className="flex-1">
+              <Skeleton height={14} width="60%" />
+              <div className="mt-2">
+                <Skeleton height={24} width="40%" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="bg-white rounded-2xl shadow-sm p-8">
+        <Skeleton height={22} width={200} />
+        <div className="mt-6">
+          <Skeleton height={120} borderRadius={12} />
+        </div>
+      </div>
+
+    </div>
+  );
+}
 
   return (
     <div className="space-y-8">

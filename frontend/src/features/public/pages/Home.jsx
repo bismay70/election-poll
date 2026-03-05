@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -9,6 +9,13 @@ import "swiper/css";
 
 export default function Home() {
   const navigate = useNavigate();
+  useEffect(() => {
+  if (window.location.hash) {
+    setTimeout(() => {
+      window.history.replaceState(null, "", window.location.pathname);
+    }, 300);
+  }
+}, []);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
@@ -126,7 +133,7 @@ export default function Home() {
       </SwiperSlide>
       <SwiperSlide>
         <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl">
-          <img src="/images/voting.png" className="w-full h-full object-cover" />
+          <img src="/images/accessible.png" className="w-full h-full object-cover" />
         </div>
       </SwiperSlide>
       </Swiper>
@@ -144,11 +151,11 @@ export default function Home() {
       >
     ›
   </button>
-</motion.div>
-</div>
+  </motion.div>
+  </div>
 </section>
 
-  <section className="relative z-10 py-24 bg-transparent">
+  <section id="features" className="relative z-10 py-24 bg-transparent">
   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50 -z-10" />
   <div className="max-w-6xl mx-auto px-6">
 
@@ -256,7 +263,7 @@ export default function Home() {
     </div>
   </section>
 
-  <section className="relative z-10 py-24 bg-white">
+  <section id="how-it-works" className="relative z-10 py-24 bg-white">
     <div className="max-w-6xl mx-auto px-6 text-center">
       
       <h2 className="text-3xl sm:text-4xl font-bold mb-16">
@@ -330,9 +337,72 @@ export default function Home() {
           </p>
         </div>
 
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <section id="about" className="py-24 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl font-bold mb-6 text-gray-900">
+        About ElectPoll
+      </h2>
+
+      <p className="text-gray-600 leading-relaxed">
+        Elections are one of the most important parts of any democratic process,
+        but organizing them can often be complex and time-consuming.
+        ElectPoll was created to explore how digital systems can make voting
+        simpler while still maintaining transparency and fairness.
+      </p>
+
+      <p className="text-gray-600 leading-relaxed mt-4">
+        The platform enables voters to cast votes securely, allows administrators
+        to manage elections efficiently, and provides real-time vote counts
+        to maintain trust in the election process.
+      </p>
+
+      <p className="mt-6 text-sm text-gray-500">
+        Built around principles that guide secure and transparent digital elections.
+      </p>
+
+      <div className="mt-8 flex gap-3 flex-wrap">
+        <span className="px-3 py-1 text-xs sm:text-sm rounded-full bg-gray-100 text-gray-700 border border-gray-200
+        transition-all duration-300 hover:bg-gray-200 hover:text-gray-900 hover:-translate-y-0.5 hover:shadow-sm">
+          Election Integrity
+        </span>
+
+        <span className="px-3 py-1 text-xs sm:text-sm rounded-full bg-gray-100 text-gray-700 border border-gray-200
+        transition-all duration-300 hover:bg-gray-200 hover:text-gray-900 hover:-translate-y-0.5 hover:shadow-sm">
+          Transparent Process
+        </span>
+
+        <span className="px-3 py-1 text-xs sm:text-sm rounded-full bg-gray-100 text-gray-700 border border-gray-200
+        transition-all duration-300 hover:bg-gray-200 hover:text-gray-900 hover:-translate-y-0.5 hover:shadow-sm">
+          Inclusive Participation
+        </span>
+        </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.03 }}
+              className="rounded-2xl overflow-hidden shadow-xl border border-gray-100"
+            >
+              <img
+                src="/images/voting.png"
+                alt="Digital voting"
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+
+          </div>
+    </section>
   </main>
   );
 }

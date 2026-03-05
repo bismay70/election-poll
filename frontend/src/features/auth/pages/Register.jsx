@@ -183,7 +183,7 @@ const Register = () => {
 
           <div className="relative">
           <input
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? "password" : "text"}
             name="password"
             placeholder="Password"
             className="w-full border border-gray-400 rounded-lg px-4 py-3 pr-12
@@ -204,7 +204,7 @@ const Register = () => {
 
           <div className="relative">
           <input
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? "password" : "text"}
             name="confirmPassword"
             placeholder="Confirm Password"
             className="w-full border border-gray-400 rounded-lg px-4 py-3 pr-12

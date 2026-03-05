@@ -7,8 +7,10 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { Users, Vote, TrendingUp } from "lucide-react";
 import CountUp from "react-countup";
+import StatsCardSkeleton from "../../../shared/components/skeletons/StatsCardSkeleton";
+import CandidateCardSkeleton from "../../../shared/components/skeletons/CandidateCardSkeleton";
 
-import {getVoterCandidates, getVoterStats, submitVote,} from "../voterApi";
+import {getVoterCandidates, getVoterStats} from "../voterApi";
 
 const VoterDashboard = () => {
   const [candidates, setCandidates] = useState([]);
@@ -42,15 +44,22 @@ const VoterDashboard = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500 animate-pulse">
-          Loading election data...
-        </div>
+  return (
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[...Array(3)].map((_, i) => (
+          <StatsCardSkeleton key={i} />
+        ))}
       </div>
-    );
-  }
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...Array(6)].map((_, i) => (
+          <CandidateCardSkeleton key={i} />
+        ))}
+      </div>
 
+    </div>
+  );
+}
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

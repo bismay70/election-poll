@@ -4,6 +4,7 @@ import CandidateTable from "../components/CandidateTable";
 import AddCandidateModal from "../components/AddCandidateModal";
 import { addCandidate, deleteCandidate } from "../adminApi";
 import api from "../../../services/api";
+import TableSkeleton from "../../../shared/components/skeletons/TableSkeleton";
 
 const CandidateManagement = () => {
   const [candidates, setCandidates] = useState([]);
@@ -74,9 +75,7 @@ const CandidateManagement = () => {
         <div className="bg-white shadow rounded-xl p-4 sm:p-6">
           <div className="overflow-x-auto">
             {loading ? (
-              <div className="text-gray-500 animate-pulse">
-                Loading candidates...
-              </div>
+              <TableSkeleton rows={6} cols={4} />
             ) : candidates.length === 0 ? (
               <div className="text-center text-gray-500 py-8">
                 No candidates available.
