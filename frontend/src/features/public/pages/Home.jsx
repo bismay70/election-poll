@@ -286,7 +286,10 @@ export default function Home() {
           </p>
         </div>
 
-        <MoveRight className="hidden sm:block text-gray-300 w-10 h-6 transition-all duration-300 group-hover:text-indigo-300" />
+        <>
+          <div className="sm:hidden w-[2px] h-8 bg-gray-200"></div>
+          <MoveRight className="hidden sm:block text-gray-300 w-10 h-6" />
+        </>
 
         <div className="group flex flex-col items-center transition-all duration-300 hover:-translate-y-1">
           <div
@@ -303,7 +306,10 @@ export default function Home() {
           </p>
         </div>
 
-        <MoveRight className="hidden sm:block text-gray-300 w-10 h-6" />
+        <>
+          <div className="sm:hidden w-[2px] h-8 bg-gray-200"></div>
+          <MoveRight className="hidden sm:block text-gray-300 w-10 h-6" />
+        </>
 
         <div className="group flex flex-col items-center transition-all duration-300 hover:-translate-y-1">
           <div
@@ -320,7 +326,10 @@ export default function Home() {
           </p>
         </div>
 
-        <MoveRight className="hidden sm:block text-gray-300 w-10 h-6" />
+        <>
+          <div className="sm:hidden w-[2px] h-8 bg-gray-200"></div>
+          <MoveRight className="hidden sm:block text-gray-300 w-10 h-6" />
+        </>
 
         <div className="group flex flex-col items-center transition-all duration-300 hover:-translate-y-1">
           <div

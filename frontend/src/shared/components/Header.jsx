@@ -46,7 +46,7 @@ export default function Header() {
             </span>
           </Link>
 
-          <div className="navlinks hidden md:flex items-center gap-4 text-[16px] font-bold">
+          <div className="navlinks hidden md:flex items-center gap-4 text-[16px] font-semibold">
 
             <Link to="/" className={navLinkStyle}>
               Home

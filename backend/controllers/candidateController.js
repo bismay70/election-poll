@@ -14,6 +14,7 @@ const getVoteCount = async (req, res) => {
     const rank = higherRankCount + 1;
     const totalCandidates = await Candidate.countDocuments();
     const totalVoters = await User.countDocuments({ role: "voter" });
+    const totalVotesCast = await Vote.countDocuments();
 
     return res.status(200).json({
       candidate: {
@@ -24,7 +25,8 @@ const getVoteCount = async (req, res) => {
       },
       platformStats: {
         totalCandidates,
-        totalVoters
+        totalVoters,
+        totalVotesCast
       }
     });
   } catch (err) {

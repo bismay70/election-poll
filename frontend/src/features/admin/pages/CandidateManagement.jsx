@@ -42,14 +42,14 @@ const CandidateManagement = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      const res = await deleteCandidate(id);
-      toast.success(res.data.message);
-      fetchCandidates();
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Error deleting candidate");
-    }
-  };
+  try {
+    await deleteCandidate(id);
+    toast.success("Candidate deleted successfully");
+    fetchCandidates();
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Error deleting candidate");
+  }
+};
 
   return (
     <>

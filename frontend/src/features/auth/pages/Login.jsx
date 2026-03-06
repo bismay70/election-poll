@@ -4,6 +4,12 @@ import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Eye, EyeOff } from "lucide-react";
 
+const demoAccounts = [
+  { role: "Candidate", email: "candidate6@gmail.com", password: "candy6" },
+  { role: "Voter", email: "rituul@gmail.com", password: "ritul5555" },
+  { role: "Voter", email: "kavyanair@gmail.com", password: "kavya@1234" },
+];
+
 const showCustomToast = (message, type = "loading", id = undefined) => {
   return toast.custom(
     (t) => (
@@ -16,13 +22,13 @@ const showCustomToast = (message, type = "loading", id = undefined) => {
       >
         <div className="mt-1">
           {type === "success" && (
-            <div className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500 text-white text-sm font-bold animate-bounceIn">
+            <div className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500 text-white text-sm font-bold">
               ✓
             </div>
           )}
 
           {type === "error" && (
-            <div className="w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white text-sm font-bold animate-bounceIn">
+            <div className="w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white text-sm font-bold">
               ✕
             </div>
           )}
@@ -43,16 +49,6 @@ const showCustomToast = (message, type = "loading", id = undefined) => {
             {message}
           </p>
         </div>
-
-        <div className="absolute bottom-0 left-0 h-1 w-full bg-gray-200 rounded-b-xl overflow-hidden">
-          <div
-            className={`h-full toast-progress
-            ${type === "success" ? "bg-green-500" : ""}
-            ${type === "error" ? "bg-red-500" : ""}
-            ${type === "loading" ? "bg-indigo-600" : ""}
-            `}
-          ></div>
-        </div>
       </div>
     ),
     {
@@ -63,52 +59,60 @@ const showCustomToast = (message, type = "loading", id = undefined) => {
 };
 
 const Login = () => {
-      const navigate = useNavigate();
-      const [selectedRole, setSelectedRole] = useState("voter");
-      const [showPassword, setShowPassword] = useState(true);
-      
-      const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-      });
+  const navigate = useNavigate();
 
-      const [loading, setLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("voter");
+  const [showPassword, setShowPassword] = useState(true);
 
-      const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
+  const [loading, setLoading] = useState(false);
 
-        if (!formData.email || !formData.password) {
-          showCustomToast("All fields are mandatory!", "error");
-          return;
-        }
+  const fillDemo = (email, password) => {
+    setFormData({
+      email,
+      password
+    });
+  };
 
-        setLoading(true);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-        const toastId = showCustomToast("Authenticating...", "loading");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-          const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}/auth/login`,
-            formData
-          );
+    if (!formData.email || !formData.password) {
+      showCustomToast("All fields are mandatory!", "error");
+      return;
+    }
 
-          localStorage.setItem("name", response.data.name);
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("role", response.data.role);
-          localStorage.setItem("user", JSON.stringify(response.data));
-          localStorage.setItem("token", response.data.token);
+    setLoading(true);
 
-          showCustomToast(
-      response.data?.message || "Login successful!",
-      "success",
-      toastId
-    );
+    const toastId = showCustomToast("Authenticating...", "loading");
 
-    navigate(`/${response.data.role}`, { replace: true });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        formData
+      );
+
+      localStorage.setItem("name", response.data.name);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", response.data.role);
+      localStorage.setItem("user", JSON.stringify(response.data));
+
+      showCustomToast(
+        response.data?.message || "Login successful!",
+        "success",
+        toastId
+      );
+
+      navigate(`/${response.data.role}`, { replace: true });
+
     } catch (err) {
       showCustomToast(
         err.response?.data?.message || "Invalid credentials",
@@ -121,8 +125,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center py-16 px-4 bg-gray-100">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+  <div className="min-h-screen flex items-center justify-center py-16 px-4 bg-gray-100">
+    <div className="w-full max-w-md space-y-6">
+
+      <div className="bg-white rounded-2xl shadow-2xl p-8">
 
         <h2 className="text-3xl font-extrabold text-center mb-6">
           Election Poll Login
@@ -154,26 +160,25 @@ const Login = () => {
             value={formData.email}
             onChange={handleChange}
           />
-        <div className="relative">
-          <input
-            type={showPassword ? "password" : "text"}
-            name="password"
-            placeholder="Password"
-            className="w-full border border-gray-400 rounded-lg px-4 py-3 pr-12
-            focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30
-            transition duration-200"
-            value={formData.password}
-            onChange={handleChange}
-          />
 
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-500 z-10"
-          >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </button>
-        </div>
+          <div className="relative">
+            <input
+              type={showPassword ? "password" : "text"}
+              name="password"
+              placeholder="Password"
+              className="w-full border border-gray-400 rounded-lg px-4 py-3 pr-12 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30 transition duration-200"
+              value={formData.password}
+              onChange={handleChange}
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-500 z-10"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
 
           <button
             type="submit"
@@ -199,8 +204,35 @@ const Login = () => {
         </p>
 
       </div>
+
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+
+        <h3 className="text-sm font-semibold text-gray-700 mb-3">
+          Demo Accounts (Development)
+        </h3>
+
+        <div className="space-y-2">
+          {demoAccounts.map((account) => (
+            <button
+              key={account.email}
+              onClick={() => fillDemo(account.email, account.password)}
+              className="w-full flex justify-between items-center text-sm px-3 py-2 rounded-md bg-white border border-gray-200 hover:bg-gray-100 transition"
+            >
+              <span className="font-medium">{account.role}</span>
+              <span className="text-gray-500">{account.email}</span>
+            </button>
+          ))}
+        </div>
+
+        <p className="text-xs text-gray-500 mt-3">
+          Click an account to auto-fill login fields.
+        </p>
+
+      </div>
+
     </div>
-  );
-};
+  </div>
+);
+}
 
 export default Login;

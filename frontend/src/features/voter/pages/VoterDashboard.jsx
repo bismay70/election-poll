@@ -171,7 +171,7 @@ const VoterDashboard = () => {
         </p>
         <div className="w-full bg-gray-200 rounded-full h-3">
           <div
-            className="bg-indigo-600 h-3 rounded-full transition-all duration-700 ease-out"
+            className="bg-green-600 h-3 rounded-full transition-all duration-700 ease-out"
             style={{ width: `${stats.turnout || 0}%` }}
           />
         </div>
